@@ -69,6 +69,8 @@ This repository is structured around a Debian source package, not a hand-built b
 
 Official Ubuntu availability requires source-package review and archive inclusion. A GitHub `.deb` is convenient, but it is not Ubuntu-verified.
 
+See [docs/ubuntu-registration.md](docs/ubuntu-registration.md) for the PPA and official Ubuntu/Debian archive path.
+
 ## Upstream
 
 - Nerd Fonts: <https://github.com/ryanoasis/nerd-fonts>
