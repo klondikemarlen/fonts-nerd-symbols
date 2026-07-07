@@ -1,0 +1,9 @@
+fonts-nerd-symbols uses the upstream NerdFontsSymbolsOnly.zip release asset as its orig source.
+
+Run from the repository root:
+
+    ./debian/scripts/prepare-upstream 3.4.0
+
+This verifies the upstream SHA-256.txt entry, extracts the Symbols Nerd Font files and fontconfig snippet into build/fonts-nerd-symbols-3.4.0/upstream, copies debian/ into that source tree, and writes build/fonts-nerd-symbols_3.4.0.orig.tar.xz for debuild.
+
+The upstream font binaries are intentionally not committed to git. The Debian source package carries them in the orig tarball.

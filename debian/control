@@ -1,0 +1,17 @@
+Source: fonts-nerd-symbols
+Section: fonts
+Priority: optional
+Maintainer: Marlen Brunner <klondikemarlen@gmail.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Homepage: https://github.com/ryanoasis/nerd-fonts
+Rules-Requires-Root: no
+
+Package: fonts-nerd-symbols
+Architecture: all
+Multi-Arch: foreign
+Depends: fontconfig-config, ${misc:Depends}
+Description: Nerd Fonts symbols fallback for fontconfig
+ Installs Symbols Nerd Font and fontconfig aliases so existing terminal fonts
+ such as Ubuntu Sans Mono can render Nerd Font icon glyphs without switching
+ the whole terminal font.
