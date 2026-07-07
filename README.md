@@ -56,10 +56,10 @@ Build the local binary package:
 debuild -us -uc
 ```
 
-Build and lint the unsigned source package for local checking:
+Build and lint the unsigned source package for local checking. Use `-sa` for the first Debian revision of an upstream version; use `-sd` for later Debian revisions that reuse the same orig tarball.
 
 ```bash
-debuild -S -sa -us -uc
+debuild -S -sd -us -uc
 lintian "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes" "../fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
 ```
 

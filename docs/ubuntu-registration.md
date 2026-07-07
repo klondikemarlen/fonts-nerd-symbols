@@ -116,7 +116,12 @@ From the repository root:
 rm -rf build
 ./debian/scripts/prepare-upstream "$UPSTREAM_VERSION"
 cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
-debuild -S -sa
+```
+
+Build the signed source upload. Use `-sa` for the first Debian revision of an upstream version; use `-sd` for later Debian revisions that reuse an already-uploaded orig tarball.
+
+```bash
+debuild -S -sd
 ```
 
 Important: do not use `-us -uc` for a real upload. Those flags skip signing.
@@ -157,7 +162,7 @@ rm -rf build
 ./debian/scripts/prepare-upstream "$UPSTREAM_VERSION"
 cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
 debuild -us -uc
-debuild -S -sa -us -uc
+debuild -S -sd -us -uc
 cd ..
 cp "fonts-nerd-symbols_${SOURCE_VERSION}_all.deb" fonts-nerd-symbols_all.deb
 sha256sum \
@@ -192,7 +197,7 @@ Debian-first path:
 
 1. File an ITP bug for `fonts-nerd-symbols`.
 2. Update `debian/changelog` to close it: `Closes: #NNNNNN`.
-3. Build a signed source package with `debuild -S -sa`.
+3. Build a signed source package with `debuild -S -sa` for a new upstream orig tarball, or `debuild -S -sd` for later Debian revisions of the same upstream version.
 4. Run `lintian` on the source `.changes` and `.dsc`.
 5. Find a Debian sponsor.
 6. Upload to Debian NEW queue.
