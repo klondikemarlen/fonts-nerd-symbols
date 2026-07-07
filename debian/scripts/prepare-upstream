@@ -13,8 +13,6 @@ zip="${workdir}/NerdFontsSymbolsOnly.zip"
 checksums="${workdir}/SHA-256.txt"
 srcdir="${repo_root}/build/${package}-${version}"
 orig="${repo_root}/build/${package}_${version}.orig.tar.xz"
-source_date_epoch="$(date -u -d "$(dpkg-parsechangelog -l "${repo_root}/debian/changelog" -S Date)" +%s)"
-
 
 rm -rf "${srcdir}"
 mkdir -p "${srcdir}/upstream" "${repo_root}/build"
@@ -31,8 +29,8 @@ rm -f "${srcdir}/upstream"/*.md "${srcdir}/upstream"/LICENSE
 cp -a "${repo_root}/debian" "${srcdir}/debian"
 
 # The orig tarball carries upstream content only; debian/ is supplied separately.
-# Use the changelog timestamp: Launchpad rejects files stamped at the Unix epoch.
-tar --sort=name --owner=0 --group=0 --numeric-owner --mtime="@${source_date_epoch}" \
+# Keep this reproducible across Debian revisions: Launchpad rejects changed orig tarballs.
+tar --sort=name --owner=0 --group=0 --numeric-owner --mtime="@0" \
   --exclude="${package}-${version}/debian" \
   -C "${repo_root}/build" -cJf "${orig}" "${package}-${version}"
 
