@@ -1,3 +1,9 @@
+fonts-nerd-symbols (3.4.0-2) resolute; urgency=medium
+
+  * Rebuild with non-epoch mtimes for Launchpad publication.
+
+ -- Marlen Brunner <klondikemarlen@gmail.com>  Tue, 07 Jul 2026 23:10:00 +0000
+
 fonts-nerd-symbols (3.4.0-1) resolute; urgency=medium
 
   * Initial release.
