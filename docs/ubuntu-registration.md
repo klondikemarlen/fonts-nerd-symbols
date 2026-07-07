@@ -104,6 +104,12 @@ Do not put `/ubuntu` in the PPA name. Launchpad adds that path for apt repositor
 
 A PPA takes a signed source package, not the binary `.deb`.
 
+Install the needed upload/build tools:
+
+```bash
+sudo apt install devscripts debhelper lintian dput
+```
+
 From the repository root:
 
 ```bash

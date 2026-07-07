@@ -33,28 +33,37 @@ echo "Nerd Font test:    "
 Install packaging tools:
 
 ```bash
-sudo apt install devscripts debhelper lintian
+sudo apt install devscripts debhelper lintian dput
+```
+
+Set release variables from `debian/changelog`:
+
+```bash
+UPSTREAM_VERSION="$(dpkg-parsechangelog -S Version | sed 's/-[^-]*$//')"
+SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
 ```
 
 Prepare the upstream orig tarball and Debian source tree:
 
 ```bash
 debian/rules get-orig-source
+cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
 ```
 
-Build the binary and source package:
+Build the local binary package:
 
 ```bash
-cd build/fonts-nerd-symbols-3.4.0
 debuild -us -uc
 ```
 
-Build the source-only upload and run lintian:
+Build and lint the unsigned source package for local checking:
 
 ```bash
 debuild -S -sa -us -uc
-lintian ../fonts-nerd-symbols_3.4.0-1_source.changes ../fonts-nerd-symbols_3.4.0-1.dsc
+lintian "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes" "../fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
 ```
+
+For a signed PPA upload, follow [docs/ubuntu-registration.md](docs/ubuntu-registration.md).
 
 ## Ubuntu/Debian inclusion path
 
