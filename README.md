@@ -27,7 +27,6 @@ sudo apt install fonts-nerd-symbols
 - [Install and verify](docs/install.md)
 - [Build and release](docs/build.md)
 - [Launchpad PPA publishing](docs/launchpad-ppa.md)
-- [Official Debian/Ubuntu archive path](docs/debian-ubuntu.md)
 - [Debian-first package submission](docs/debian-first.md)
 - [Ubuntu-direct package request](docs/ubuntu-direct.md)
 - [Package policy notes](docs/package-policy.md)
