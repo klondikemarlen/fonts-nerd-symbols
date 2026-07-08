@@ -1,51 +1,12 @@
 # Official Debian/Ubuntu archive path
 
-This is the path to `sudo apt install fonts-nerd-symbols` without adding a PPA or downloading a `.deb`. Do this on a separate branch so PPA work on `main` can keep targeting Ubuntu series such as `resolute`.
+This is the path to `sudo apt install fonts-nerd-symbols` without adding a PPA or downloading a `.deb`.
 
-```bash
-git checkout -b debian-submission
-```
+## Guides
 
-## Debian-first path
-
-Recommended flow:
-
-1. File an ITP bug for `fonts-nerd-symbols`.
-2. Update `debian/changelog` to close it: `Closes: #NNNNNN`.
-3. Set the changelog distribution to `unstable` on the Debian submission branch.
-4. Build a signed source package with `debuild -S -sa` for a new upstream orig tarball, or `debuild -S -sd` for later Debian revisions of the same upstream version.
-5. Run `lintian` on the source `.changes` and `.dsc`.
-6. Upload to mentors.debian.net.
-7. File an RFS bug and find a Debian sponsor.
-8. Pass Debian NEW review.
-9. Ubuntu can later sync the package from Debian.
-
-## Filing the ITP
-
-```bash
-sudo apt install reportbug
-reportbug wnpp
-```
-
-Choose `ITP - Intent To Package`.
-
-Suggested metadata:
-
-```text
-Package: fonts-nerd-symbols
-Short description: Nerd Fonts symbols fallback for fontconfig
-License: MIT
-Upstream: https://github.com/ryanoasis/nerd-fonts
-Packaging: https://github.com/klondikemarlen/fonts-nerd-symbols
-```
-
-Suggested long description:
-
-```text
-Installs Symbols Nerd Font and fontconfig aliases so existing terminal fonts
-such as Ubuntu Sans Mono can render Nerd Font icon glyphs without switching
-the whole terminal font.
-```
+- [Debian-first package submission](debian-first.md)
+- Ubuntu-direct package request: see below.
+- Package policy notes: see below.
 
 ## Ubuntu-direct path
 
