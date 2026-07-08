@@ -29,6 +29,7 @@ sudo apt install fonts-nerd-symbols
 - [Launchpad PPA publishing](docs/launchpad-ppa.md)
 - [Official Debian/Ubuntu archive path](docs/debian-ubuntu.md)
 - [Debian-first package submission](docs/debian-first.md)
+- [Ubuntu-direct package request](docs/ubuntu-direct.md)
 
 ## What it installs
 

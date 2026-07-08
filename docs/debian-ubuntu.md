@@ -5,12 +5,8 @@ This is the path to `sudo apt install fonts-nerd-symbols` without adding a PPA o
 ## Guides
 
 - [Debian-first package submission](debian-first.md)
-- Ubuntu-direct package request: see below.
+- [Ubuntu-direct package request](ubuntu-direct.md)
 - Package policy notes: see below.
-
-## Ubuntu-direct path
-
-If you skip Debian, file a Launchpad bug/package request for Ubuntu, attach or link the source package, find an Ubuntu sponsor, and pass Ubuntu archive review. Debian-first is cleaner for this package.
 
 ## Policy notes
 
