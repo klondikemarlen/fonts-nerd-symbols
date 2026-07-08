@@ -1,17 +1,5 @@
-fonts-nerd-symbols (3.4.0-3) resolute; urgency=medium
+fonts-nerd-symbols (3.4.0-1) unstable; urgency=medium
 
-  * Retouch installed files instead of changing the orig tarball.
+  * Initial release. (Closes: #1141696)
 
- -- Marlen Brunner <klondikemarlen@gmail.com>  Tue, 07 Jul 2026 23:20:00 +0000
-
-fonts-nerd-symbols (3.4.0-2) resolute; urgency=medium
-
-  * Rebuild with non-epoch mtimes for Launchpad publication.
-
- -- Marlen Brunner <klondikemarlen@gmail.com>  Tue, 07 Jul 2026 23:10:00 +0000
-
-fonts-nerd-symbols (3.4.0-1) resolute; urgency=medium
-
-  * Initial release.
-
- -- Marlen Brunner <klondikemarlen@gmail.com>  Tue, 07 Jul 2026 00:00:00 +0000
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Wed, 08 Jul 2026 14:08:46 -0700
