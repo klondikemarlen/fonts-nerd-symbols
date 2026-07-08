@@ -1,7 +1,7 @@
 Source: fonts-nerd-symbols
 Section: fonts
 Priority: optional
-Maintainer: Marlen Brunner <klondikemarlen@gmail.com>
+Maintainer: Marlen Brunner <klondikemarlen+debian@gmail.com>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.7.0
 Homepage: https://github.com/ryanoasis/nerd-fonts
