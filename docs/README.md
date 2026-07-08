@@ -6,3 +6,4 @@
 - [Official Debian/Ubuntu archive path](debian-ubuntu.md)
 - [Debian-first package submission](debian-first.md)
 - [Ubuntu-direct package request](ubuntu-direct.md)
+- [Package policy notes](package-policy.md)

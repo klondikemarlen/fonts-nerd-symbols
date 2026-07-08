@@ -6,13 +6,5 @@ This is the path to `sudo apt install fonts-nerd-symbols` without adding a PPA o
 
 - [Debian-first package submission](debian-first.md)
 - [Ubuntu-direct package request](ubuntu-direct.md)
-- Package policy notes: see below.
+- [Package policy notes](package-policy.md)
 
-## Policy notes
-
-- Keep the upstream font binaries out of git.
-- Generate the upstream `orig.tar.xz` from the Nerd Fonts release asset.
-- Keep managed fontconfig snippets under `/usr/share/fontconfig/conf.avail/`.
-- Enable the snippet with an `/etc/fonts/conf.d/10-nerd-font-symbols.conf` symlink.
-- Upload source packages to PPAs/archive, not hand-built binary `.deb` files.
-- Never commit `~/.gnupg`, private keys, passphrases, Launchpad confirmation emails, or upload credentials.

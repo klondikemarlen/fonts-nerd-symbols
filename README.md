@@ -30,6 +30,7 @@ sudo apt install fonts-nerd-symbols
 - [Official Debian/Ubuntu archive path](docs/debian-ubuntu.md)
 - [Debian-first package submission](docs/debian-first.md)
 - [Ubuntu-direct package request](docs/ubuntu-direct.md)
+- [Package policy notes](docs/package-policy.md)
 
 ## What it installs
 
