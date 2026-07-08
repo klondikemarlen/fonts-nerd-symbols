@@ -134,6 +134,8 @@ dput mentors build/fonts-nerd-symbols_3.4.0-1_source.changes
 
 If the `mentors` dput profile is missing, use the mentors.debian.net web upload or add the mentors upload profile from their maintainer instructions.
 
+After mentors accepts the upload, it sends the public package page, `.dsc` URL, and an RFS helper URL. Use those links in the sponsorship request instead of guessing paths.
+
 ## Submit for sponsorship
 
 After mentors accepts the upload and shows a package page, file an RFS bug.

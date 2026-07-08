@@ -90,6 +90,16 @@ unstable   # Debian submission target
 
 Keep Debian submission work on its own branch so PPA release work does not accidentally switch to `unstable`.
 
+## Branch strategy
+
+Use `main` as the long-lived PPA/GitHub release branch. Keep it protected.
+
+Use `debian-submission` only as the temporary branch for the current Debian ITP/RFS cycle. It carries Debian-specific state such as `3.4.0-1`, `unstable`, `Closes: #1141696`, and the Debian packaging email. Keep it unprotected unless multiple people need to push to it before sponsorship finishes.
+
+After the initial Debian outcome, either delete `debian-submission` or replace it with a deliberate long-lived Debian maintenance branch such as `debian/latest` or `debian/unstable`. Protect that long-lived Debian branch only if it becomes the active shared maintenance branch.
+
+Do not mix PPA changelog history and Debian archive submission history on the same branch unless that is an explicit maintenance decision.
+
 ## Debian build environment
 
 Build Debian `unstable` source uploads in a Debian environment, not on an Ubuntu host. Ubuntu-local `lintian` may reject `Distribution: unstable`, and Ubuntu builds can add Ubuntu-specific build metadata. A Debian container, sbuild, pbuilder, or VM is sufficient for this package.
