@@ -5,6 +5,8 @@ Maintainer: Marlen Brunner <klondikemarlen+debian@gmail.com>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.7.0
 Homepage: https://github.com/ryanoasis/nerd-fonts
+Vcs-Browser: https://github.com/klondikemarlen/fonts-nerd-symbols/tree/debian/latest
+Vcs-Git: https://github.com/klondikemarlen/fonts-nerd-symbols.git -b debian/latest
 Rules-Requires-Root: no
 
 Package: fonts-nerd-symbols

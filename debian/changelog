@@ -1,3 +1,9 @@
+fonts-nerd-symbols (3.4.0-2) unstable; urgency=medium
+
+  * Add Vcs-Git and Vcs-Browser fields for sponsor review.
+
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Wed, 08 Jul 2026 14:42:00 -0700
+
 fonts-nerd-symbols (3.4.0-1) unstable; urgency=medium
 
   * Initial release. (Closes: #1141696)
