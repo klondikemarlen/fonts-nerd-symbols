@@ -146,6 +146,15 @@ https://launchpad.net/~klondikemarlen/+archive/ubuntu/fonts-nerd-symbols
 
 Launchpad should show the upload as pending, then building, then published.
 
+The apt repository is usable only after the InRelease metadata is published. Check:
+
+```bash
+curl -I https://ppa.launchpadcontent.net/klondikemarlen/fonts-nerd-symbols/ubuntu/dists/resolute/InRelease
+```
+
+Ready means `HTTP 200`. Not ready means `403 Forbidden`; wait for Launchpad's publisher.
+
+
 After Launchpad publishes it, users install with:
 
 ```bash
