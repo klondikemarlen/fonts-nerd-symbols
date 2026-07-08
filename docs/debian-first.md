@@ -1,11 +1,9 @@
 # Debian-first package submission
 
-Use this path when you want `fonts-nerd-symbols` to become an official Debian package first, then flow into Ubuntu by normal sync.
-
-Work on a branch so PPA packaging can keep targeting Ubuntu series such as `resolute`:
+Use this path when you want `fonts-nerd-symbols` to become an official Debian package first, then flow into Ubuntu by normal sync. Keep this separate from the PPA branch so Ubuntu-series uploads can keep targeting `resolute`.
 
 ```bash
-git checkout -b debian-submission
+git switch -c debian-submission
 ```
 
 ## Flow
@@ -13,18 +11,33 @@ git checkout -b debian-submission
 1. File an ITP bug for `fonts-nerd-symbols`.
 2. Update `debian/changelog` to close it: `Closes: #NNNNNN`.
 3. Set the changelog distribution to `unstable` on the Debian submission branch.
-4. Build a signed source package with `debuild -S -sa` for a new upstream orig tarball, or `debuild -S -sd` for later Debian revisions of the same upstream version.
-5. Run `lintian` on the source `.changes` and `.dsc`.
-6. Upload to mentors.debian.net.
-7. File an RFS bug and find a Debian sponsor.
-8. Pass Debian NEW review.
-9. Ubuntu can later sync the package from Debian.
+4. Build a source package in a Debian environment.
+5. Run Debian `lintian` on the source `.changes` and `.dsc`.
+6. Sign the source artifacts with the registered OpenPGP key.
+7. Upload the source package to mentors.debian.net.
+8. File an RFS bug and find a Debian sponsor.
+9. Pass Debian NEW review.
+10. Ubuntu can later sync the package from Debian.
 
 ## File the ITP
 
+Install and configure `reportbug`:
+
 ```bash
 sudo apt install reportbug
-reportbug wnpp
+reportbug --configure
+```
+
+For Ubuntu hosts, make sure `reportbug` targets Debian, not Ubuntu:
+
+```bash
+reportbug -B debian wnpp
+```
+
+If `reportbug` starts paging through thousands of existing WNPP bugs, quit and rerun without the duplicate-query browser:
+
+```bash
+reportbug -B debian --no-query-bts wnpp
 ```
 
 Choose `ITP - Intent To Package`.
@@ -65,34 +78,72 @@ fonts-nerd-symbols (3.4.0-1) unstable; urgency=medium
 
   * Initial release. (Closes: #NNNNNN)
 
- -- Marlen Brunner <klondikemarlen@gmail.com>  Tue, 07 Jul 2026 23:10:00 +0000
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Wed, 08 Jul 2026 14:08:46 -0700
 ```
 
-Do not change the PPA branch from `resolute` to `unstable`; keep Debian submission work separate.
+Use the public Debian packaging email you used for the ITP. Do not change the PPA branch from `resolute` to `unstable`; keep Debian submission work separate.
 
 ## Build source for review
 
+Build Debian uploads in Debian, not Ubuntu. Ubuntu's `lintian` can reject `Distribution: unstable`, and Ubuntu-built source metadata can include Ubuntu-specific build context.
+
+A disposable Debian container is enough for this package:
+
 ```bash
-sudo apt install devscripts debhelper lintian
-rm -rf build
-UPSTREAM_VERSION="$(dpkg-parsechangelog -S Version | sed 's/-[^-]*$//')"
-SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
-./debian/scripts/prepare-upstream "$UPSTREAM_VERSION"
-cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
-debuild -S -sa
-lintian "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes" "../fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
+docker run --rm -v "$PWD:/work" -w /work debian:unstable sh -lc '
+  set -eu
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get update >/dev/null
+  apt-get install -y --no-install-recommends \
+    ca-certificates wget unzip xz-utils dpkg-dev devscripts debhelper lintian build-essential >/dev/null
+  rm -rf build
+  UPSTREAM_VERSION="$(dpkg-parsechangelog -S Version | sed "s/-[^-]*$//")"
+  SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
+  ./debian/scripts/prepare-upstream "$UPSTREAM_VERSION"
+  cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
+  debuild -S -sa -us -uc
+  lintian --profile debian "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes" "../fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
+'
 ```
 
 Use `-sa` for the first Debian upload of a new upstream orig tarball. Use `-sd` only for later Debian revisions of the same upstream version after the orig tarball is already in the target archive.
 
+Sign the regenerated source upload with the registered key:
+
+```bash
+debsign -kFULL_FINGERPRINT build/fonts-nerd-symbols_3.4.0-1_source.changes
+```
+
+The `.dsc`, `.buildinfo`, and `_source.changes` files should begin with a PGP signed message header after signing.
+
+## Upload to mentors
+
+Register the same public OpenPGP key in your mentors.debian.net account. Export only the public key:
+
+```bash
+gpg --export --export-options export-minimal --armor FULL_FINGERPRINT
+```
+
+Do not export or upload secret keys.
+
+Upload the signed source package:
+
+```bash
+dput mentors build/fonts-nerd-symbols_3.4.0-1_source.changes
+```
+
+If the `mentors` dput profile is missing, use the mentors.debian.net web upload or add the mentors upload profile from their maintainer instructions.
+
 ## Submit for sponsorship
 
-Upload the signed source package to <https://mentors.debian.net/>, then file an RFS bug.
+After mentors accepts the upload and shows a package page, file an RFS bug.
 
 Typical RFS subject:
 
 ```text
 RFS: fonts-nerd-symbols/3.4.0-1 [ITP] -- Nerd Fonts symbols fallback for fontconfig
 ```
+
+Include the ITP bug number, mentors package URL, source package URL, lintian result, and a short note that this is a fonts/fontconfig fallback package.
 
 Sponsor review will focus on licensing, source/orig tarball construction, Debian font paths, fontconfig behavior, lintian output, and whether generated/binary font assets are handled according to Debian policy.

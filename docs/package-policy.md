@@ -90,6 +90,19 @@ unstable   # Debian submission target
 
 Keep Debian submission work on its own branch so PPA release work does not accidentally switch to `unstable`.
 
+## Debian build environment
+
+Build Debian `unstable` source uploads in a Debian environment, not on an Ubuntu host. Ubuntu-local `lintian` may reject `Distribution: unstable`, and Ubuntu builds can add Ubuntu-specific build metadata. A Debian container, sbuild, pbuilder, or VM is sufficient for this package.
+
+After building for mentors, verify:
+
+```text
+Build-Origin: Debian
+Distribution: unstable
+```
+
+Sign the regenerated Debian-built artifacts, not stale artifacts from another host.
+
 ## Smoke checks
 
 After installing a built package, verify:
