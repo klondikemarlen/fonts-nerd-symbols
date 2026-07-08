@@ -155,12 +155,19 @@ curl -I https://ppa.launchpadcontent.net/klondikemarlen/fonts-nerd-symbols/ubunt
 Ready means `HTTP 200`. Not ready means `403 Forbidden`; wait for Launchpad's publisher.
 
 
-After Launchpad publishes it, users install with:
+After Launchpad publishes it, users install and verify with:
 
 ```bash
 sudo add-apt-repository ppa:klondikemarlen/fonts-nerd-symbols
+sudo apt update
 sudo apt install fonts-nerd-symbols
+apt-cache policy fonts-nerd-symbols
+dpkg -L fonts-nerd-symbols
+fc-match 'Symbols Nerd Font'
+echo "Nerd Font test:    "
 ```
+
+`apt-cache policy` should show `https://ppa.launchpadcontent.net/klondikemarlen/fonts-nerd-symbols/ubuntu` as a source.
 
 ## GitHub release build process
 
@@ -197,6 +204,31 @@ SHA256SUMS
 ```
 
 The stable alias `fonts-nerd-symbols_all.deb` backs the two-command install URL.
+
+## Delete broken PPA package versions
+
+Official docs: <https://ubuntu.com/docs/launchpad/user/how-to/packaging/deleting-packages/>
+
+Launchpad can delete packages from a PPA:
+
+1. Open the PPA page.
+2. Click **View package details**.
+3. Click **Delete packages**.
+4. Search/select the package version.
+5. Add a deletion comment.
+6. Request deletion.
+
+Deletion affects the selected source package and any binaries built from it.
+
+Timing:
+
+- archive indexes: removed in at most about 20 minutes;
+- files on disk: cleanup job runs about every six hours;
+- deleted files may remain recoverable by file link for up to seven days.
+
+Important: deletion does not let you re-upload the same source version with different contents. Replace broken packages by uploading a higher Debian revision instead, for example `3.4.0-3` after `3.4.0-1` failed.
+
+Failed build history may still appear in Launchpad build records even after package deletion. Treat that as audit history; clean the published package list if Launchpad offers deletion, but do not fight immutable build logs.
 
 ## Final level: Debian/Ubuntu archive
 

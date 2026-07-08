@@ -6,18 +6,31 @@ The package keeps your normal terminal font, such as `Ubuntu Sans Mono`, and use
 
 ## Install
 
-Target public install flow:
+Fast two-command install:
 
 ```bash
 wget https://github.com/klondikemarlen/fonts-nerd-symbols/releases/latest/download/fonts-nerd-symbols_all.deb
 sudo apt install ./fonts-nerd-symbols_all.deb
 ```
 
+PPA install for apt-managed updates:
+
+```bash
+sudo add-apt-repository ppa:klondikemarlen/fonts-nerd-symbols
+sudo apt update
+sudo apt install fonts-nerd-symbols
+```
+
 Restart the terminal, keep your terminal font set to `Ubuntu Sans Mono`, then test:
 
 ```bash
+apt-cache policy fonts-nerd-symbols
+dpkg -L fonts-nerd-symbols
+fc-match 'Symbols Nerd Font'
 echo "Nerd Font test:    "
 ```
+
+`apt-cache policy` should show the PPA URL as a package source.
 
 ## What it installs
 
