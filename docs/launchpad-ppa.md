@@ -61,10 +61,10 @@ SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
 cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
 ```
 
-Build the signed source upload. Use `-sa` for the first Debian revision of an upstream version; use `-sd` for later Debian revisions that reuse an already-uploaded orig tarball.
+Build the signed source upload. Use `-sa` when the orig tarball identity is new, including `+dfsg` repacks. Use `-sd` only for later Debian revisions that reuse an already-uploaded orig tarball unchanged.
 
 ```bash
-debuild -S -sd
+debuild -S -sa
 lintian "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes" "../fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
 dput ppa:klondikemarlen/fonts-nerd-symbols "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes"
 ```

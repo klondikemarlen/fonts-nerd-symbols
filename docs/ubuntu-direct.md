@@ -25,7 +25,7 @@ Package name: fonts-nerd-symbols
 Summary: Nerd Fonts symbols fallback for fontconfig
 Upstream: https://github.com/ryanoasis/nerd-fonts
 Packaging: https://github.com/klondikemarlen/fonts-nerd-symbols
-License: MIT
+License: DFSG-free rebuilt Symbols Nerd Font, excluding Font Logos
 ```
 
 Describe the Ubuntu-specific value:
@@ -59,6 +59,8 @@ fonts-nerd-symbols_${SOURCE_VERSION}_source.changes
 
 The GitHub release may host these artifacts, but the official review still cares about the signed source package and Debian/Ubuntu policy compliance.
 
+Before requesting Ubuntu archive review, include the completed [DFSG/provenance audit](dfsg-audit.md): it documents each included Symbols Only glyph source, license, preferred form for modification, and the Font Logos exclusion.
+
 ## Changelog target
 
 For Ubuntu-direct work, use the target Ubuntu series, for example:
@@ -76,7 +78,7 @@ Ubuntu archive uploads require a sponsor unless you have upload rights. Give the
 - Launchpad bug URL;
 - source package artifacts;
 - lintian output;
-- explanation of upstream source generation;
+- explanation of upstream source generation and completed DFSG/provenance audit;
 - package install paths;
 - fontconfig behavior;
 - why this is not just a local PPA package.

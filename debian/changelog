@@ -1,3 +1,10 @@
+fonts-nerd-symbols (3.4.0+dfsg-1) unstable; urgency=medium
+
+  * Rebuild Symbols Nerd Font from source inputs and exclude Font Logos.
+    (Closes: #1141696)
+
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Thu, 09 Jul 2026 17:55:00 +0000
+
 fonts-nerd-symbols (3.4.0-2) unstable; urgency=medium
 
   * Add Vcs-Git and Vcs-Browser fields for sponsor review.

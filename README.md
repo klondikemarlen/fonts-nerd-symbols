@@ -28,6 +28,7 @@ sudo apt install fonts-nerd-symbols
 - [Build and release](docs/build.md)
 - [Launchpad PPA publishing](docs/launchpad-ppa.md)
 - [Debian-first package submission](docs/debian-first.md)
+- [DFSG glyph provenance audit](docs/dfsg-audit.md)
 - [Ubuntu-direct package request](docs/ubuntu-direct.md)
 - [Package policy notes](docs/package-policy.md)
 
@@ -43,4 +44,4 @@ sudo apt install fonts-nerd-symbols
 ## Upstream
 
 - Nerd Fonts: <https://github.com/ryanoasis/nerd-fonts>
-- Symbols Only release asset: <https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.zip>
+- Source rebuild: sparse Nerd Fonts v3.4.0 source inputs, rebuilt without Font Logos

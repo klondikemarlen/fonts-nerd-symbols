@@ -1,9 +1,11 @@
-fonts-nerd-symbols uses the upstream NerdFontsSymbolsOnly.zip release asset as its orig source.
+fonts-nerd-symbols rebuilds Symbols Nerd Font from Nerd Fonts upstream source inputs.
 
 Run from the repository root:
 
-    ./debian/scripts/prepare-upstream 3.4.0
+    ./debian/scripts/prepare-upstream 3.4.0+dfsg
 
-This verifies the upstream SHA-256.txt entry, extracts the Symbols Nerd Font files and fontconfig snippet into build/fonts-nerd-symbols-3.4.0/upstream, copies debian/ into that source tree, and writes build/fonts-nerd-symbols_3.4.0.orig.tar.xz for debuild.
+This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only into build/fonts-nerd-symbols-3.4.0+dfsg/upstream-src, removes the unlicensed Font Logos source files, copies debian/ into that source tree, and writes build/fonts-nerd-symbols_3.4.0+dfsg.orig.tar.xz for debuild.
 
-The upstream font binaries are intentionally not committed to git. The Debian source package carries them in the orig tarball.
+During package build, debian/scripts/build-clean-symbols generates the installed fonts from the shipped source inputs: it regenerates the Seti/custom source font from upstream SVGs, then runs font-patcher twice against NerdFontsSymbolsNerdFontBlank.sfd: once for SymbolsNerdFont-Regular.ttf and once with --mono for SymbolsNerdFontMono-Regular.ttf. It enables all Symbols Only glyph sets except --fontlogos.
+
+The installed fonts are rebuilt from shipped source inputs. Font Logos is excluded because upstream license-audit.md lists it as Unlicensed and Debian's Nerd Fonts notes flag logo glyphs as likely non-distributable.

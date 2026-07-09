@@ -19,15 +19,19 @@ Never commit:
 
 ## Upstream orig tarball
 
-Generate the upstream `orig.tar.xz` from the Nerd Fonts Symbols Only release asset:
+Generate the upstream `orig.tar.xz` from the Nerd Fonts v3.4.0 source inputs needed to rebuild Symbols Only:
 
 ```text
-https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.zip
+./debian/scripts/prepare-upstream 3.4.0+dfsg
 ```
 
-The orig tarball should carry upstream content only. Debian packaging belongs in the Debian tarball/source package layer, not inside the upstream orig content.
+The orig tarball carries the sparse upstream source under `upstream-src/`, not generated font binaries and not the upstream prebuilt NerdFontsSymbolsOnly.zip font binaries. Keep upstream README/LICENSE/audit files in the orig tarball so reviewers can inspect provenance.
 
-Keep the orig tarball reproducible across Debian revisions of the same upstream version. Launchpad and Debian reject changed contents for the same source version/orig tarball identity. If a package upload is broken, upload a higher Debian revision instead of mutating an existing source version.
+Keep the orig tarball reproducible across Debian revisions of the same upstream version. Launchpad and Debian reject changed contents for the same source version/orig tarball identity. If repacking changes orig contents, use a new upstream version identity such as `+dfsg`; if only the Debian packaging changes, upload a higher Debian revision instead of mutating an existing source version.
+
+## DFSG and provenance audit
+
+The bundled Symbols Only font is rebuilt from audited source inputs. Track the included glyph sources, licenses, preferred modification forms, and the Font Logos exclusion in [DFSG glyph provenance audit](dfsg-audit.md).
 
 ## Font install paths
 
@@ -89,6 +93,33 @@ unstable   # Debian submission target
 ```
 
 Keep Debian submission work on its own branch so PPA release work does not accidentally switch to `unstable`.
+
+## Branch strategy
+
+Use `main` as the long-lived PPA/GitHub release branch. Keep it protected.
+
+Use `debian-submission` only as the temporary branch for the current Debian ITP/RFS cycle. It carries Debian-specific state such as `3.4.0-1`, `unstable`, `Closes: #1141696`, and the Debian packaging email. Keep it unprotected unless multiple people need to push to it before sponsorship finishes.
+
+After the initial Debian outcome, either delete `debian-submission` or replace it with a deliberate long-lived Debian maintenance branch such as `debian/latest` or `debian/unstable`. Protect that long-lived Debian branch only if it becomes the active shared maintenance branch.
+
+Do not mix PPA changelog history and Debian archive submission history on the same branch unless that is an explicit maintenance decision.
+
+## Feature change workflow
+
+For repo feature work, create or confirm a GitHub issue first, then branch from the target base as `<issue-number>-<short-slug>`. Keep commits atomic: one logical change per commit with imperative subjects. Push the branch, open a draft pull request linked to the issue, record QA evidence in the PR, review the diff, then merge through GitHub after review and checks are satisfactory.
+
+## Debian build environment
+
+Build Debian `unstable` source uploads in a Debian environment, not on an Ubuntu host. Ubuntu-local `lintian` may reject `Distribution: unstable`, and Ubuntu builds can add Ubuntu-specific build metadata. A Debian container, sbuild, pbuilder, or VM is sufficient for this package.
+
+After building for mentors, verify:
+
+```text
+Build-Origin: Debian
+Distribution: unstable
+```
+
+Sign the regenerated Debian-built artifacts, not stale artifacts from another host.
 
 ## Smoke checks
 
