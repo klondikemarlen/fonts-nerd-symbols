@@ -2,21 +2,17 @@
 
 Use this path when you want `fonts-nerd-symbols` to become an official Debian package first, then flow into Ubuntu by normal sync.
 
-Work on a branch so PPA packaging can keep targeting Ubuntu series such as `resolute`:
-
-```bash
-git checkout -b debian-submission
-```
+Use `debian/latest` as the long-lived Debian packaging branch. Keep PPA/GitHub release work on `main` so Ubuntu series changelog targets such as `resolute` do not accidentally switch to `unstable`.
 
 ## Flow
 
 1. File an ITP bug for `fonts-nerd-symbols`.
 2. Update `debian/changelog` to close it: `Closes: #NNNNNN`.
-3. Set the changelog distribution to `unstable` on the Debian submission branch.
+3. Set the changelog distribution to `unstable` on the Debian packaging branch.
 4. Build a signed source package with `debuild -S -sa` for a new upstream orig tarball, or `debuild -S -sd` for later Debian revisions of the same upstream version.
 5. Run `lintian` on the source `.changes` and `.dsc`.
 6. Upload to mentors.debian.net.
-7. File an RFS bug and find a Debian sponsor.
+7. File an RFS bug against `sponsorship-requests` by sending the mentors RFS template to `submit@bugs.debian.org`.
 8. Pass Debian NEW review.
 9. Ubuntu can later sync the package from Debian.
 
@@ -58,17 +54,25 @@ Mention these specifics in the bug or sponsor notes:
 
 ## Changelog for Debian
 
-After the ITP exists, update `debian/changelog` on the Debian branch:
+Current Debian tracker state:
 
 ```text
-fonts-nerd-symbols (3.4.0-1) unstable; urgency=medium
+ITP: #1141696
+RFS: #1141699
+Current mentors upload: fonts-nerd-symbols_3.4.0-2
+```
+
+For a future first upload of a new package, after the ITP exists, update `debian/changelog` on the Debian branch:
+
+```text
+fonts-nerd-symbols (NEXT_VERSION) unstable; urgency=medium
 
   * Initial release. (Closes: #NNNNNN)
 
- -- Marlen Brunner <klondikemarlen@gmail.com>  Tue, 07 Jul 2026 23:10:00 +0000
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  DATE
 ```
 
-Do not change the PPA branch from `resolute` to `unstable`; keep Debian submission work separate.
+Do not change the PPA branch from `resolute` to `unstable`; keep Debian submission work on `debian/latest`.
 
 ## Build source for review
 
@@ -87,12 +91,22 @@ Use `-sa` for the first Debian upload of a new upstream orig tarball. Use `-sd` 
 
 ## Submit for sponsorship
 
-Upload the signed source package to <https://mentors.debian.net/>, then file an RFS bug.
+Upload the signed source package to <https://mentors.debian.net/>, then file an RFS bug against `sponsorship-requests`.
+
+For the initial Debian submission of this package:
+
+```text
+ITP: #1141696
+RFS: #1141699
+Mentors upload: fonts-nerd-symbols_3.4.0-2
+DSC: https://mentors.debian.net/debian/pool/main/f/fonts-nerd-symbols/fonts-nerd-symbols_3.4.0-2.dsc
+Debian packaging branch: https://github.com/klondikemarlen/fonts-nerd-symbols/tree/debian/latest
+```
 
 Typical RFS subject:
 
 ```text
-RFS: fonts-nerd-symbols/3.4.0-1 [ITP] -- Nerd Fonts symbols fallback for fontconfig
+RFS: fonts-nerd-symbols/3.4.0-2 [ITP] -- Nerd Fonts symbols fallback for fontconfig
 ```
 
 Sponsor review will focus on licensing, source/orig tarball construction, Debian font paths, fontconfig behavior, lintian output, and whether generated/binary font assets are handled according to Debian policy.
