@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+upstream_version="${1:-3.4.0}"
+source_version="${2:-${upstream_version}-4~full1}"
+distribution="${3:-resolute}"
+package="fonts-nerd-symbols"
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+srcdir="${repo_root}/build/${package}-${upstream_version}"
+
+"${repo_root}/debian/scripts/prepare-upstream" "${upstream_version}" full
+
+changelog="${srcdir}/debian/changelog"
+tmp="$(mktemp)"
+{
+  printf '%s (%s) %s; urgency=medium\n\n' "${package}" "${source_version}" "${distribution}"
+  printf '  * Build full Symbols Nerd Font package including Font Logos.\n\n'
+  printf ' -- Marlen Brunner <klondikemarlen@gmail.com>  %s\n\n' "$(date -R)"
+  cat "${changelog}"
+} >"${tmp}"
+mv "${tmp}" "${changelog}"
+
+cd "${srcdir}"
+NERD_SYMBOLS_BUILD=full debuild -us -uc
