@@ -4,6 +4,8 @@ Run from the repository root:
 
     ./debian/scripts/prepare-upstream 3.4.0
 
-This verifies the upstream SHA-256.txt entry, extracts the Symbols Nerd Font files and fontconfig snippet into build/fonts-nerd-symbols-3.4.0/upstream, copies debian/ into that source tree, and writes build/fonts-nerd-symbols_3.4.0.orig.tar.xz for debuild.
+This verifies the upstream SHA-256.txt entry, extracts the Symbols Nerd Font files, upstream README, upstream LICENSE, and fontconfig snippet into build/fonts-nerd-symbols-3.4.0/upstream, copies debian/ into that source tree, and writes build/fonts-nerd-symbols_3.4.0.orig.tar.xz for debuild.
 
 The upstream font binaries are intentionally not committed to git. The Debian source package carries them in the orig tarball.
+
+DFSG status is not cleared yet. Symbols Only is a combined font built from multiple Nerd Fonts glyph sets, so sponsorship requires a per-component audit covering each included glyph source, license, and preferred form for modification. If any glyph set is doubtful, rebuild or repack the upstream source without it before upload.

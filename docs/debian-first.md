@@ -45,7 +45,7 @@ Suggested metadata:
 ```text
 Package: fonts-nerd-symbols
 Short description: Nerd Fonts symbols fallback for fontconfig
-License: MIT
+License: pending DFSG/provenance audit
 Upstream: https://github.com/ryanoasis/nerd-fonts
 Packaging: https://github.com/klondikemarlen/fonts-nerd-symbols
 ```
@@ -66,6 +66,8 @@ Mention these specifics in the bug or sponsor notes:
 - normal text continues to render with the user's selected monospace font;
 - `Symbols Nerd Font` is only a fallback for missing icon/private-use glyphs;
 - the intended install paths are under `/usr/share/fonts/truetype/nerd-fonts-symbols/`, `/usr/share/fontconfig/conf.avail/`, and `/etc/fonts/conf.d/`.
+
+Before sponsorship, complete the [DFSG/provenance audit](dfsg-audit.md) for the bundled Symbols Only font. Document each included glyph source, license, and preferred form for modification, or rebuild/repack without doubtful glyph sets.
 
 ## Changelog for Debian
 
@@ -162,6 +164,6 @@ Typical RFS subject:
 RFS: fonts-nerd-symbols/3.4.0-2 [ITP] -- Nerd Fonts symbols fallback for fontconfig
 ```
 
-Include the ITP bug number, mentors package URL, source package URL, lintian result, and a short note that this is a fonts/fontconfig fallback package.
+Include the ITP bug number, mentors package URL, source package URL, lintian result, a short note that this is a fonts/fontconfig fallback package, and the completed DFSG/provenance audit.
 
-Sponsor review will focus on licensing, source/orig tarball construction, Debian font paths, fontconfig behavior, lintian output, and whether generated/binary font assets are handled according to Debian policy.
+Sponsor review will focus on licensing, source/orig tarball construction, preferred form for modification for bundled glyph sources, Debian font paths, fontconfig behavior, lintian output, and whether generated/binary font assets are handled according to Debian policy.

@@ -1,10 +1,18 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Nerd Fonts Symbols Only
 Source: https://github.com/ryanoasis/nerd-fonts
+Comment: Not Debian-upload ready. The bundled Symbols Nerd Font binaries need
+ per-component DFSG/provenance audit before sponsorship.
 
-Files: upstream/*
+Files: upstream/LICENSE upstream/README.md upstream/10-nerd-font-symbols.conf
 Copyright: 2014 Ryan L McIntyre
 License: MIT
+Comment:
+ The upstream Symbols Only release also ships combined font binaries built from
+ multiple Nerd Fonts glyph sets. Those binaries are intentionally left without
+ a completed stanza here until their bundled glyph sources, licenses, and
+ preferred form for modification are audited, or the font is repacked/rebuilt
+ without doubtful glyph sets.
 
 Files: debian/*
 Copyright: 2026 Marlen Brunner

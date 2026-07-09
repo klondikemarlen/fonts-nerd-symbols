@@ -25,9 +25,13 @@ Generate the upstream `orig.tar.xz` from the Nerd Fonts Symbols Only release ass
 https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.zip
 ```
 
-The orig tarball should carry upstream content only. Debian packaging belongs in the Debian tarball/source package layer, not inside the upstream orig content.
+The orig tarball should carry upstream content only. Debian packaging belongs in the Debian tarball/source package layer, not inside the upstream orig content. Keep upstream README/LICENSE files in the orig tarball so reviewers can inspect provenance.
 
 Keep the orig tarball reproducible across Debian revisions of the same upstream version. Launchpad and Debian reject changed contents for the same source version/orig tarball identity. If a package upload is broken, upload a higher Debian revision instead of mutating an existing source version.
+
+## DFSG and provenance audit
+
+Do not claim Debian readiness until the bundled Symbols Only font has a per-component audit covering each included glyph source, license, and preferred form for modification. Track the audit in [DFSG glyph provenance audit](dfsg-audit.md). If any glyph set is doubtful, rebuild or repack without it before sponsorship.
 
 ## Font install paths
 
@@ -99,6 +103,10 @@ Use `debian-submission` only as the temporary branch for the current Debian ITP/
 After the initial Debian outcome, either delete `debian-submission` or replace it with a deliberate long-lived Debian maintenance branch such as `debian/latest` or `debian/unstable`. Protect that long-lived Debian branch only if it becomes the active shared maintenance branch.
 
 Do not mix PPA changelog history and Debian archive submission history on the same branch unless that is an explicit maintenance decision.
+
+## Feature change workflow
+
+For repo feature work, create or confirm a GitHub issue first, then branch from the target base as `<issue-number>-<short-slug>`. Keep commits atomic: one logical change per commit with imperative subjects. Push the branch, open a draft pull request linked to the issue, record QA evidence in the PR, review the diff, then merge through GitHub after review and checks are satisfactory.
 
 ## Debian build environment
 
