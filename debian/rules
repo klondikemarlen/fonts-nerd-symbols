@@ -7,10 +7,10 @@ override_dh_auto_clean:
 	rm -rf debian/.build-symbols-source upstream
 
 override_dh_auto_build:
-	./debian/scripts/build-clean-symbols
+	NERD_SYMBOLS_BUILD=dfsg ./debian/scripts/build-clean-symbols
 
 execute_after_dh_install:
 	find debian/fonts-nerd-symbols -type f -exec touch --date="@$${SOURCE_DATE_EPOCH}" {} +
 
 get-orig-source:
-	./debian/scripts/prepare-upstream "$$(dpkg-parsechangelog -S Version | sed 's/-[^-]*$$//')"
+	./debian/scripts/prepare-upstream "$$(dpkg-parsechangelog -S Version | sed 's/-[^-]*$$//')" dfsg

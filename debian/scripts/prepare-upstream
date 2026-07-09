@@ -2,6 +2,15 @@
 set -euo pipefail
 
 version="${1:-3.4.0+dfsg}"
+mode="${2:-dfsg}"
+if [ "${mode}" != dfsg ]; then
+  echo "debian/latest only supports dfsg source preparation" >&2
+  exit 2
+fi
+if [[ "${version}" != *+dfsg* ]]; then
+  echo "DFSG source version must include +dfsg" >&2
+  exit 2
+fi
 upstream_version="${version%%+dfsg*}"
 package="fonts-nerd-symbols"
 release="v${upstream_version}"
@@ -50,6 +59,6 @@ tar --sort=name --owner=0 --group=0 --numeric-owner --mtime="@0" \
   --exclude="${package}-${version}/debian" \
   -C "${repo_root}/build" -cJf "${orig}" "${package}-${version}"
 
-echo "Prepared ${srcdir}"
+echo "Prepared ${srcdir} (dfsg)"
 echo "Prepared ${orig}"
 echo "Build with: cd ${srcdir} && debuild -us -uc"

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
+if [ "${NERD_SYMBOLS_BUILD:-dfsg}" != dfsg ]; then
+  echo "debian/latest only supports NERD_SYMBOLS_BUILD=dfsg" >&2
+  exit 2
+fi
+
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source_dir="${1:-${repo_root}/upstream-src}"
