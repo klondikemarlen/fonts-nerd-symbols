@@ -13,4 +13,4 @@ execute_after_dh_install:
 	find debian/fonts-nerd-symbols -type f -exec touch --date="@$${SOURCE_DATE_EPOCH}" {} +
 
 get-orig-source:
-	./debian/scripts/prepare-upstream "$$(dpkg-parsechangelog -S Version | sed 's/-[^-]*$$//')"
+	./debian/scripts/prepare-upstream "$$(dpkg-parsechangelog -S Version | sed 's/-[^-]*$$//')" dfsg
