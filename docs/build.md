@@ -23,11 +23,11 @@ The default build is the Debian-clean `+dfsg` package. It rebuilds Symbols
 Nerd Font from source inputs and excludes Font Logos.
 
 ```bash
-rm -rf build
-./debian/scripts/prepare-upstream "$UPSTREAM_VERSION" dfsg
-cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
-debuild -us -uc
+./debian/scripts/build-dfsg-package
 ```
+
+For a different release, pass the source version and distribution as arguments:
+`./debian/scripts/build-dfsg-package "$SOURCE_VERSION" resolute`.
 
 ## Local full-symbols package
 
