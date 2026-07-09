@@ -45,7 +45,7 @@ Suggested metadata:
 ```text
 Package: fonts-nerd-symbols
 Short description: Nerd Fonts symbols fallback for fontconfig
-License: pending DFSG/provenance audit
+License: DFSG-free rebuilt Symbols Nerd Font, excluding Font Logos
 Upstream: https://github.com/ryanoasis/nerd-fonts
 Packaging: https://github.com/klondikemarlen/fonts-nerd-symbols
 ```
@@ -61,13 +61,12 @@ the whole terminal font.
 Mention these specifics in the bug or sponsor notes:
 
 - this is a fonts package, not an application;
-- the package installs only Nerd Fonts Symbols Only assets;
-- the fontconfig snippet is upstream-provided by Nerd Fonts;
+- the package rebuilds the Nerd Fonts Symbols Only assets from upstream source inputs;
+- Font Logos is excluded because upstream marks it unlicensed and Debian notes flag logo glyphs as likely non-distributable;
+- the completed [DFSG/provenance audit](dfsg-audit.md) records every included glyph source, license, preferred form for modification, and the Font Logos exclusion;
 - normal text continues to render with the user's selected monospace font;
 - `Symbols Nerd Font` is only a fallback for missing icon/private-use glyphs;
 - the intended install paths are under `/usr/share/fonts/truetype/nerd-fonts-symbols/`, `/usr/share/fontconfig/conf.avail/`, and `/etc/fonts/conf.d/`.
-
-Before sponsorship, complete the [DFSG/provenance audit](dfsg-audit.md) for the bundled Symbols Only font. Document each included glyph source, license, and preferred form for modification, or rebuild/repack without doubtful glyph sets.
 
 ## Changelog for Debian
 
@@ -103,7 +102,7 @@ docker run --rm -v "$PWD:/work" -w /work debian:unstable sh -lc '
   export DEBIAN_FRONTEND=noninteractive
   apt-get update >/dev/null
   apt-get install -y --no-install-recommends \
-    ca-certificates wget unzip xz-utils dpkg-dev devscripts debhelper lintian build-essential >/dev/null
+    ca-certificates git xz-utils dpkg-dev devscripts debhelper lintian build-essential fontforge python3-fontforge fontconfig >/dev/null
   rm -rf build
   UPSTREAM_VERSION="$(dpkg-parsechangelog -S Version | sed "s/-[^-]*$//")"
   SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
