@@ -1,3 +1,9 @@
+fonts-nerd-symbols (3.4.0+dfsg-1~ppa1) resolute; urgency=medium
+
+  * Rebuild Symbols Nerd Font from source inputs and exclude Font Logos.
+
+ -- Marlen Brunner <klondikemarlen@gmail.com>  Thu, 09 Jul 2026 17:45:00 +0000
+
 fonts-nerd-symbols (3.4.0-3) resolute; urgency=medium
 
   * Retouch installed files instead of changing the orig tarball.

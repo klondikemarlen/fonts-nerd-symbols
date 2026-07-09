@@ -33,10 +33,10 @@ debuild -us -uc
 
 ## Unsigned source package for local checking
 
-Use `-sa` for the first Debian revision of an upstream version. Use `-sd` for later Debian revisions that reuse an already-uploaded orig tarball.
+Use `-sa` when the orig tarball identity is new, including the first `+dfsg` repack upload. Use `-sd` only for later Debian revisions that reuse an already-uploaded orig tarball unchanged.
 
 ```bash
-debuild -S -sd -us -uc
+debuild -S -sa -us -uc
 lintian "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes" "../fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
 ```
 
