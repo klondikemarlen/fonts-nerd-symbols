@@ -100,6 +100,10 @@ After the initial Debian outcome, either delete `debian-submission` or replace i
 
 Do not mix PPA changelog history and Debian archive submission history on the same branch unless that is an explicit maintenance decision.
 
+## Feature change workflow
+
+For repo feature work, create or confirm a GitHub issue first, then branch from the target base as `<issue-number>-<short-slug>`. Keep commits atomic: one logical change per commit with imperative subjects. Push the branch, open a draft pull request linked to the issue, record QA evidence in the PR, review the diff, then merge through GitHub after review and checks are satisfactory.
+
 ## Debian build environment
 
 Build Debian `unstable` source uploads in a Debian environment, not on an Ubuntu host. Ubuntu-local `lintian` may reject `Distribution: unstable`, and Ubuntu builds can add Ubuntu-specific build metadata. A Debian container, sbuild, pbuilder, or VM is sufficient for this package.
