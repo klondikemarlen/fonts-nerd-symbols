@@ -25,9 +25,13 @@ Generate the upstream `orig.tar.xz` from the Nerd Fonts Symbols Only release ass
 https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.zip
 ```
 
-The orig tarball should carry upstream content only. Debian packaging belongs in the Debian tarball/source package layer, not inside the upstream orig content.
+The orig tarball should carry upstream content only. Debian packaging belongs in the Debian tarball/source package layer, not inside the upstream orig content. Keep upstream README/LICENSE files in the orig tarball so reviewers can inspect provenance.
 
 Keep the orig tarball reproducible across Debian revisions of the same upstream version. Launchpad and Debian reject changed contents for the same source version/orig tarball identity. If a package upload is broken, upload a higher Debian revision instead of mutating an existing source version.
+
+## DFSG and provenance audit
+
+Do not claim Debian readiness until the bundled Symbols Only font has a per-component audit covering each included glyph source, license, and preferred form for modification. Track the audit in [DFSG glyph provenance audit](dfsg-audit.md). If any glyph set is doubtful, rebuild or repack without it before sponsorship.
 
 ## Font install paths
 

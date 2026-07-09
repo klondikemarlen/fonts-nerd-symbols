@@ -25,7 +25,6 @@ wget -q -O "${checksums}" "${base_url}/SHA-256.txt"
 )
 
 unzip -q "${zip}" -d "${srcdir}/upstream"
-rm -f "${srcdir}/upstream"/*.md "${srcdir}/upstream"/LICENSE
 cp -a "${repo_root}/debian" "${srcdir}/debian"
 
 # The orig tarball carries upstream content only; debian/ is supplied separately.
