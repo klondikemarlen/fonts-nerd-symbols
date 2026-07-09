@@ -5,7 +5,7 @@ No private keys, passphrases, Launchpad tokens, GitHub tokens, encrypted email c
 ## Install build tools
 
 ```bash
-sudo apt install devscripts debhelper lintian dput
+sudo apt install git xz-utils build-essential devscripts debhelper lintian dput fontforge python3-fontforge fontconfig
 ```
 
 ## Version variables
@@ -17,18 +17,27 @@ UPSTREAM_VERSION="$(dpkg-parsechangelog -S Version | sed 's/-[^-]*$//')"
 SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
 ```
 
-## Prepare source tree
+## Prepare DFSG source tree
+
+The default build is the Debian-clean `+dfsg` package. It rebuilds Symbols
+Nerd Font from source inputs and excludes Font Logos.
 
 ```bash
 rm -rf build
-./debian/scripts/prepare-upstream "$UPSTREAM_VERSION"
+./debian/scripts/prepare-upstream "$UPSTREAM_VERSION" dfsg
 cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
+debuild -us -uc
 ```
 
-## Local binary package
+## Local full-symbols package
+
+This is an explicit local/manual helper for reproducing the old all-symbols
+package shape, including Font Logos. Do not use it for Debian uploads, and do
+not publish it to the same PPA/release line unless you first choose a separate
+package/versioning scheme.
 
 ```bash
-debuild -us -uc
+./debian/scripts/build-full-package 3.4.0 3.4.0-4~full1 resolute
 ```
 
 ## Unsigned source package for local checking

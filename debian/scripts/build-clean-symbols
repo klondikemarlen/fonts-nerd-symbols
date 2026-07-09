@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+mode="${NERD_SYMBOLS_BUILD:-dfsg}"
+if [ "${1:-}" = "--full" ] || [ "${1:-}" = "--dfsg" ]; then
+  mode="${1#--}"
+  shift
+fi
+case "${mode}" in
+  dfsg|full) ;;
+  *) echo "usage: NERD_SYMBOLS_BUILD=dfsg|full $0 [SOURCE_DIR [OUT_DIR]]" >&2; exit 2 ;;
+esac
+
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source_dir="${1:-${repo_root}/upstream-src}"
 out_dir="${2:-${repo_root}/upstream}"
@@ -45,8 +55,13 @@ flags=(
   --no-progressbars
 )
 
-# Font Logos is intentionally omitted: upstream marks it unlicensed and Debian's
-# Nerd Fonts notes flag logo glyphs as likely non-distributable.
+if [ "${mode}" = full ]; then
+  flags+=(--fontlogos)
+else
+  # Font Logos is intentionally omitted: upstream marks it unlicensed and Debian's
+  # Nerd Fonts notes flag logo glyphs as likely non-distributable.
+  :
+fi
 "${fontforge_bin}" -script "${source_dir}/font-patcher" "${template}" "${flags[@]}" --configfile "${config}"
 "${fontforge_bin}" -script "${source_dir}/font-patcher" "${template}" "${flags[@]}" --mono
 
