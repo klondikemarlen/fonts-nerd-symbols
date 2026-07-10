@@ -47,7 +47,7 @@ Package: fonts-nerd-symbols
 Short description: Nerd Fonts symbols fallback for fontconfig
 License: DFSG-free rebuilt Symbols Nerd Font, excluding Font Logos
 Upstream: https://github.com/ryanoasis/nerd-fonts
-Packaging: https://github.com/klondikemarlen/fonts-nerd-symbols
+Packaging: https://salsa.debian.org/klondikemarlen/fonts-nerd-symbols/-/tree/debian/latest
 ```
 
 Suggested long description:
@@ -75,7 +75,7 @@ Current Debian tracker state:
 ```text
 ITP: #1141696
 RFS: #1141699
-Current mentors upload: fonts-nerd-symbols_3.4.0-2
+Current mentors upload: pending refreshed 3.4.0+dfsg-2 upload
 ```
 
 For a future first upload of a new package, after the ITP exists, update `debian/changelog` on the Debian branch:
@@ -152,15 +152,15 @@ For the initial Debian submission of this package:
 ```text
 ITP: #1141696
 RFS: #1141699
-Mentors upload: fonts-nerd-symbols_3.4.0-2
-DSC: https://mentors.debian.net/debian/pool/main/f/fonts-nerd-symbols/fonts-nerd-symbols_3.4.0-2.dsc
-Debian packaging branch: https://github.com/klondikemarlen/fonts-nerd-symbols/tree/debian/latest
+Mentors upload: <version shown by mentors.debian.net after upload>
+DSC: <https://mentors.debian.net/debian/pool/main/f/fonts-nerd-symbols/fonts-nerd-symbols_VERSION.dsc>
+Debian packaging branch: https://salsa.debian.org/klondikemarlen/fonts-nerd-symbols/-/tree/debian/latest
 ```
 
 Typical RFS subject:
 
 ```text
-RFS: fonts-nerd-symbols/3.4.0-2 [ITP] -- Nerd Fonts symbols fallback for fontconfig
+RFS: fonts-nerd-symbols/3.4.0+dfsg-2 [ITP] -- Nerd Fonts symbols fallback for fontconfig
 ```
 
 Include the ITP bug number, mentors package URL, source package URL, lintian result, a short note that this is a fonts/fontconfig fallback package, and the completed DFSG/provenance audit.
