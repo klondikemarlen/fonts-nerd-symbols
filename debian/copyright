@@ -31,18 +31,46 @@ Files: upstream-src/src/glyphs/powerline-symbols/*
 Copyright: 2013 Kim Silkebækken and other contributors
 License: MIT
 
-Files: upstream-src/src/glyphs/materialdesign/*
+Files: upstream-src/src/glyphs/materialdesign/MaterialDesignIconsDesktop.ttf
+       upstream-src/src/glyphs/materialdesign/MaterialDesignIconsDesktop_orig.ttf
+       upstream-src/src/glyphs/materialdesign/materialdesignicons-webfont.ttf
 Copyright: Material Design Icons contributors
 License: Apache-2.0
+Comment: Pictogrammers' bundled license says Apache-2.0 applies to web and desktop fonts.
+
+Files: upstream-src/src/glyphs/materialdesign/README.md
+Copyright: Material Design Icons contributors
+License: MIT
+Comment: Pictogrammers' bundled license says MIT applies to all non-font and non-icon files.
+
+Files: upstream-src/src/glyphs/materialdesign/LICENSE
+Copyright: Material Design Icons contributors
+License: Apache-2.0 and MIT
+Comment: This upstream notice records Material Design Icons' font, icon, and code license terms.
 
 Files: upstream-src/src/glyphs/codicons/*
 Copyright: Microsoft Corporation and vscode-codicons contributors
 License: CC-BY-4.0
 
-Files: upstream-src/src/glyphs/font-awesome/*
-Copyright: Fonticons, Inc.
+Files: upstream-src/src/glyphs/font-awesome/FontAwesome.otf
+Copyright: 2022 Fonticons, Inc.
 License: OFL-1.1
-Comment: Font Awesome's bundled license states that font files are under SIL OFL 1.1; icon artwork is CC BY 4.0.
+Comment: Font Awesome's bundled license says SIL OFL 1.1 applies to icons packaged as web and desktop font files.
+
+Files: upstream-src/src/glyphs/font-awesome/analyze
+       upstream-src/src/glyphs/font-awesome/generate
+       upstream-src/src/glyphs/font-awesome/mapping
+       upstream-src/src/glyphs/font-awesome/remix
+       upstream-src/src/glyphs/font-awesome/remix_mapping
+       upstream-src/src/glyphs/font-awesome/README.md
+Copyright: 2022 Fonticons, Inc. and Nerd Fonts contributors
+License: MIT
+Comment: Font Awesome's bundled license says MIT applies to all non-font and non-icon files.
+
+Files: upstream-src/src/glyphs/font-awesome/LICENSE.txt
+Copyright: 2022 Fonticons, Inc.
+License: OFL-1.1 and CC-BY-4.0 and MIT
+Comment: This upstream notice records Font Awesome's font, icon, and code license terms.
 
 Files: upstream-src/src/glyphs/pomicons/*
 Copyright: Gabriele Lana and Pomicons contributors

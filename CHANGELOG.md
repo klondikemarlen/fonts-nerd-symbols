@@ -11,12 +11,15 @@ This file follows [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.0.0/)
 - Document project-level release history separately from Debian package upload metadata.
 - Added an opt-in local full-symbols build path for reproducing the old all-symbols package shape.
 - Added a one-command DFSG package helper for rebuilding the Debian-clean package from source inputs.
+- Added repo-native `make test`, `make test-integration`, and `make test-repro` targets.
+- Added pinned Nerd Fonts v3.4.0 upstream notice/license inventory checks for the prepared DFSG source tree.
 
 ### Changed
 
 - Clarify that Debian/Ubuntu package upload metadata remains in `debian/changelog`.
 - Document the current `debian/latest` branch strategy and RFS `3.4.0+dfsg-2` snapshot.
 - Improve source-preparation documentation for reviewability.
+- Split Font Awesome and Material Design Icons copyright metadata by file role and license.
 
 ### Fixed
 

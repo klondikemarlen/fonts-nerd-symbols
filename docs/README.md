@@ -2,6 +2,7 @@
 
 - [Project changelog](../CHANGELOG.md)
 - [Install and verify](install.md)
+- [Testing](testing.md)
 - [Build and release](build.md)
 - [Launchpad PPA publishing](launchpad-ppa.md)
 - [Debian-first package submission](debian-first.md)
