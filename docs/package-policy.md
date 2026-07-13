@@ -112,10 +112,6 @@ Keep human-readable release notes in `CHANGELOG.md` using Keep a Changelog
 remains the authority for package versions, distributions, urgency, and bug
 closures.
 
-## Feature change workflow
-
-Repo feature work follows `agents/workflows/feature-workflow.md`.
-
 ## Debian build environment
 
 Build Debian `unstable` source uploads in a Debian environment, not on an Ubuntu host. Ubuntu-local `lintian` may reject `Distribution: unstable`, and Ubuntu builds can add Ubuntu-specific build metadata. A Debian container, sbuild, pbuilder, or VM is sufficient for this package.

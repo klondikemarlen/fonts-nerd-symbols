@@ -32,7 +32,6 @@ config="${source_dir}/src/unpatched-fonts/NerdFontsSymbolsOnly/config.cfg"
 fontforge_bin="${FONTFORGE:-fontforge}"
 
 export LC_ALL="${LC_ALL:-C.UTF-8}"
-export LANG="${LANG:-C.UTF-8}"
 
 if ! command -v "${fontforge_bin}" >/dev/null; then
   echo "fontforge is required to rebuild Symbols Nerd Font" >&2
