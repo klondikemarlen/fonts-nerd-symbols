@@ -4,6 +4,10 @@ set -euo pipefail
 upstream_version="${1:-3.4.0}"
 source_version="${2:-${upstream_version}-4~full1}"
 distribution="${3:-resolute}"
+if [ "$#" -gt 3 ]; then
+  echo "usage: $0 [UPSTREAM_VERSION [SOURCE_VERSION [DISTRIBUTION]]]" >&2
+  exit 2
+fi
 package="fonts-nerd-symbols"
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 srcdir="${repo_root}/build/${package}-${upstream_version}"
@@ -12,6 +16,7 @@ srcdir="${repo_root}/build/${package}-${upstream_version}"
 
 changelog="${srcdir}/debian/changelog"
 tmp="$(mktemp)"
+trap 'rm -f "${tmp}"' EXIT
 {
   printf '%s (%s) %s; urgency=medium\n\n' "${package}" "${source_version}" "${distribution}"
   printf '  * Build full Symbols Nerd Font package including Font Logos.\n\n'

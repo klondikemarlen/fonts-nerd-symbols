@@ -7,19 +7,24 @@ current_version="$(cd "${repo_root}" && dpkg-parsechangelog -S Version)"
 current_distribution="$(cd "${repo_root}" && dpkg-parsechangelog -S Distribution)"
 source_version="${1:-${current_version}}"
 distribution="${2:-${current_distribution}}"
-upstream_version="${source_version%-*}"
+if [ "$#" -gt 2 ]; then
+  echo "usage: $0 [SOURCE_VERSION [DISTRIBUTION]]" >&2
+  exit 2
+fi
+source_tree_version="${source_version%-*}"
 
-if [[ "${upstream_version}" != *+dfsg* ]]; then
+if [[ "${source_tree_version}" != *+dfsg* ]]; then
   echo "DFSG package version must include +dfsg" >&2
   exit 2
 fi
 
-srcdir="${repo_root}/build/${package}-${upstream_version}"
-"${repo_root}/debian/scripts/prepare-upstream" "${upstream_version}" dfsg
+srcdir="${repo_root}/build/${package}-${source_tree_version}"
+"${repo_root}/debian/scripts/prepare-upstream" "${source_tree_version}" dfsg
 
 if [ "${source_version}" != "${current_version}" ] || [ "${distribution}" != "${current_distribution}" ]; then
   changelog="${srcdir}/debian/changelog"
   tmp="$(mktemp)"
+  trap 'rm -f "${tmp}"' EXIT
   {
     printf '%s (%s) %s; urgency=medium\n\n' "${package}" "${source_version}" "${distribution}"
     printf '  * Build DFSG Symbols Nerd Font package from source inputs.\n\n'

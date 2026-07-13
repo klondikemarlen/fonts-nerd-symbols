@@ -10,6 +10,7 @@ override_dh_auto_build:
 	./debian/scripts/build-clean-symbols
 
 execute_after_dh_install:
+	: "$${SOURCE_DATE_EPOCH:?SOURCE_DATE_EPOCH must be set by dpkg-buildpackage}"
 	find debian/fonts-nerd-symbols -type f -exec touch --date="@$${SOURCE_DATE_EPOCH}" {} +
 
 get-orig-source:
