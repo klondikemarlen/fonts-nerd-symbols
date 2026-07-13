@@ -60,8 +60,7 @@ cp -a \
   "${srcdir}/upstream-src/"
 
 if [ "${mode}" = dfsg ]; then
-  rm -f "${srcdir}/upstream-src/src/glyphs/font-logos.ttf"
-  rm -f "${srcdir}/upstream-src/bin/scripts/lib/i_logos.sh"
+  rm -f "${srcdir}/upstream-src/src/glyphs/font-logos.ttf" "${srcdir}/upstream-src/bin/scripts/lib/i_logos.sh"
 fi
 
 cp -a "${repo_root}/debian" "${srcdir}/debian"
