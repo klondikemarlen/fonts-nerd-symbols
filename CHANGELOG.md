@@ -9,6 +9,8 @@ This file follows [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.0.0/)
 ### Added
 
 - Document project-level release history separately from Debian package upload metadata.
+- Added an opt-in local full-symbols build path for reproducing the old all-symbols package shape.
+- Added a one-command DFSG package helper for rebuilding the Debian-clean package from source inputs.
 
 ### Changed
 
