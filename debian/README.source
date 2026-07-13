@@ -1,11 +1,25 @@
 fonts-nerd-symbols rebuilds Symbols Nerd Font from Nerd Fonts upstream source inputs.
 
-Run from the repository root:
+Build the upstream source tree from the repository root:
 
     ./debian/scripts/prepare-upstream 3.4.0+dfsg
 
-This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only into build/fonts-nerd-symbols-3.4.0+dfsg/upstream-src, removes the unlicensed Font Logos source files, copies debian/ into that source tree, and writes build/fonts-nerd-symbols_3.4.0+dfsg.orig.tar.xz for debuild.
+That command sparse-clones the Nerd Fonts v3.4.0 source inputs needed for
+Symbols Only into:
 
-During package build, debian/scripts/build-clean-symbols generates the installed fonts from the shipped source inputs: it regenerates the Seti/custom source font from upstream SVGs, then runs font-patcher twice against NerdFontsSymbolsNerdFontBlank.sfd: once for SymbolsNerdFont-Regular.ttf and once with --mono for SymbolsNerdFontMono-Regular.ttf. It enables all Symbols Only glyph sets except --fontlogos.
+    build/fonts-nerd-symbols-3.4.0+dfsg/upstream-src
 
-The installed fonts are rebuilt from shipped source inputs. Font Logos is excluded because upstream license-audit.md lists it as Unlicensed and Debian's Nerd Fonts notes flag logo glyphs as likely non-distributable.
+For the DFSG package, it removes the unlicensed Font Logos source files, copies
+`debian/` into the build tree, and writes:
+
+    build/fonts-nerd-symbols_3.4.0+dfsg.orig.tar.xz
+
+During package build, `debian/scripts/build-clean-symbols` generates the
+installed fonts from the shipped source inputs. It regenerates the Seti/custom
+source font from upstream SVGs, then runs `font-patcher` twice against
+`NerdFontsSymbolsNerdFontBlank.sfd`: once for `SymbolsNerdFont-Regular.ttf`
+and once with `--mono` for `SymbolsNerdFontMono-Regular.ttf`.
+
+The build enables all Symbols Only glyph sets except `--fontlogos`. Font Logos
+is excluded because upstream `license-audit.md` lists it as Unlicensed and
+Debian's Nerd Fonts notes flag logo glyphs as likely non-distributable.

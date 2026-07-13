@@ -23,14 +23,8 @@ sudo apt install fonts-nerd-symbols
 
 ## Docs
 
-- [Docs index](docs/README.md)
-- [Install and verify](docs/install.md)
-- [Build and release](docs/build.md)
-- [Launchpad PPA publishing](docs/launchpad-ppa.md)
-- [Debian-first package submission](docs/debian-first.md)
-- [DFSG glyph provenance audit](docs/dfsg-audit.md)
-- [Ubuntu-direct package request](docs/ubuntu-direct.md)
-- [Package policy notes](docs/package-policy.md)
+- [Documentation index](docs/README.md)
+- [Project changelog](CHANGELOG.md)
 
 ## What it installs
 

@@ -44,6 +44,7 @@ Expected installed files include:
 /etc/fonts/conf.d/10-nerd-font-symbols.conf
 ```
 
-## Scope
+## Compatibility
 
-This package is broad, but not universal. It helps apps that honor fontconfig fallback. It does not patch every font or force apps that insist on a single font to use fallback glyphs.
+Applications that honor fontconfig fallback can use this package for missing
+Nerd Font glyphs. Applications that require one fixed font may not.

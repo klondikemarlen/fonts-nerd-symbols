@@ -1,5 +1,6 @@
 # Docs
 
+- [Project changelog](../CHANGELOG.md)
 - [Install and verify](install.md)
 - [Build and release](build.md)
 - [Launchpad PPA publishing](launchpad-ppa.md)

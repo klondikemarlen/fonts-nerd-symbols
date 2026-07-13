@@ -98,15 +98,23 @@ Keep Debian submission work on its own branch so PPA release work does not accid
 
 Use `main` as the long-lived PPA/GitHub release branch. Keep it protected.
 
-Use `debian-submission` only as the temporary branch for the current Debian ITP/RFS cycle. It carries Debian-specific state such as `3.4.0-1`, `unstable`, `Closes: #1141696`, and the Debian packaging email. Keep it unprotected unless multiple people need to push to it before sponsorship finishes.
+Use `debian/latest` as the Debian packaging branch once Debian sponsorship work
+exists. It may carry Debian-specific state such as `unstable`, ITP closures,
+and the Debian packaging email.
 
-After the initial Debian outcome, either delete `debian-submission` or replace it with a deliberate long-lived Debian maintenance branch such as `debian/latest` or `debian/unstable`. Protect that long-lived Debian branch only if it becomes the active shared maintenance branch.
+Do not mix PPA changelog history and Debian archive submission history on the
+same branch unless that is an explicit maintenance decision.
 
-Do not mix PPA changelog history and Debian archive submission history on the same branch unless that is an explicit maintenance decision.
+## Project changelog
+
+Keep human-readable release notes in `CHANGELOG.md` using Keep a Changelog
+1.0.0 sections. Keep Debian/Ubuntu upload metadata in `debian/changelog`; it
+remains the authority for package versions, distributions, urgency, and bug
+closures.
 
 ## Feature change workflow
 
-For repo feature work, create or confirm a GitHub issue first, then branch from the target base as `<issue-number>-<short-slug>`. Keep commits atomic: one logical change per commit with imperative subjects. Push the branch, open a draft pull request linked to the issue, record QA evidence in the PR, review the diff, then merge through GitHub after review and checks are satisfactory.
+Repo feature work follows `agents/workflows/feature-workflow.md`.
 
 ## Debian build environment
 
