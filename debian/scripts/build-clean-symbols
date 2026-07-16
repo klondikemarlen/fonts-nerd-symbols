@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-if [ "${NERD_SYMBOLS_BUILD:-dfsg}" != dfsg ]; then
-  echo "debian/latest only supports NERD_SYMBOLS_BUILD=dfsg" >&2
-  exit 2
-fi
-
-
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source_dir="${1:-${repo_root}/upstream-src}"
 out_dir="${2:-${repo_root}/upstream}"
@@ -33,15 +27,11 @@ mkdir -p "${out_dir}"
 
 flags=(
   --codicons
-  --fontawesome
-  --fontawesomeext
   --octicons
   --powersymbols
   --pomicons
   --powerline
   --powerlineextra
-  --material
-  --weather
   --glyphdir "${source_dir}/src/glyphs"
   --outputdir "${out_dir}"
   --extension ttf
@@ -50,8 +40,7 @@ flags=(
   --no-progressbars
 )
 
-# Font Logos is intentionally omitted: upstream marks it unlicensed and Debian's
-# Nerd Fonts notes flag logo glyphs as likely non-distributable.
+# Font Logos and glyph sets already packaged by Debian are intentionally omitted.
 "${fontforge_bin}" -script "${source_dir}/font-patcher" "${template}" "${flags[@]}" --configfile "${config}"
 "${fontforge_bin}" -script "${source_dir}/font-patcher" "${template}" "${flags[@]}" --mono
 

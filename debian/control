@@ -1,18 +1,16 @@
 Source: fonts-nerd-symbols
 Section: fonts
-Priority: optional
 Maintainer: Marlen Brunner <klondikemarlen+debian@gmail.com>
-Build-Depends: debhelper-compat (= 13), fontforge, python3-fontforge
+Build-Depends: debhelper-compat (= 14), libdebhelper-perl, fontforge, python3-fontforge
 Standards-Version: 4.7.0
 Homepage: https://github.com/ryanoasis/nerd-fonts
 Vcs-Browser: https://salsa.debian.org/klondikemarlen/fonts-nerd-symbols
 Vcs-Git: https://salsa.debian.org/klondikemarlen/fonts-nerd-symbols.git -b debian/latest
-Rules-Requires-Root: no
 
 Package: fonts-nerd-symbols
 Architecture: all
 Multi-Arch: foreign
-Depends: fontconfig-config, ${misc:Depends}
+Depends: fontconfig-config
 Description: Nerd Fonts symbols fallback for fontconfig
  Installs Symbols Nerd Font and fontconfig aliases so existing terminal fonts
  such as Ubuntu Sans Mono can render Nerd Font icon glyphs without switching
