@@ -2,10 +2,16 @@
 
 No private keys, passphrases, Launchpad tokens, GitHub tokens, encrypted email contents, or GPG secret-key exports belong in this repository.
 
+## Pull request review and QA
+
+Before release, link the change to an issue and open a draft pull request against its target branch. The author must review the complete diff and add a PR comment recording every finding, any fixup, and a `PASS`, `FAIL`, or `BLOCKED` result.
+
+Run targeted QA and the smallest relevant automated check, then post the exact scenario, command, and outcome in the PR. Resolve every actionable comment before merging. After any fix, repeat the complete self-review and QA and post the new evidence; keep the PR blocked until comments and checks are resolved.
+
 ## Install build tools
 
 ```bash
-sudo apt install git xz-utils build-essential devscripts debhelper lintian dput fontforge python3-fontforge fontconfig
+sudo apt install git xz-utils build-essential devscripts debhelper lintian dput sbuild debootstrap schroot fontforge python3-fontforge fontconfig
 ```
 
 ## Version variables
