@@ -7,15 +7,17 @@ Use `debian/latest` as the long-lived Debian packaging branch. Keep PPA/GitHub r
 ## Flow
 
 1. File an ITP bug for `fonts-nerd-symbols`.
-2. Update `debian/changelog` to close it: `Closes: #NNNNNN`.
-3. Set the changelog distribution to `unstable` on the Debian packaging branch.
-4. Build a signed source package with `debuild -S -sa` for a new upstream orig tarball, or `debuild -S -sd` for later Debian revisions of the same upstream version.
-5. Run `lintian` on the source `.changes` and `.dsc`.
-6. Sign the source artifacts with the registered OpenPGP key.
-7. Upload to mentors.debian.net.
-8. File an RFS bug against `sponsorship-requests` by sending the mentors RFS template to `submit@bugs.debian.org`.
-9. Pass Debian NEW review.
-10. Ubuntu can later sync the package from Debian.
+2. Create a linked issue and draft pull request against `debian/latest`.
+3. Complete the [pull request review and QA](build.md#pull-request-review-and-qa) before merging.
+4. Update `debian/changelog` to close it: `Closes: #NNNNNN`.
+5. Set the changelog distribution to `unstable` on the Debian packaging branch.
+6. Build a signed source package with `debuild -S -sa` for a new upstream orig tarball, or `debuild -S -sd` for later Debian revisions of the same upstream version.
+7. Run `lintian` on the source `.changes` and `.dsc`, then a clean `sbuild` build.
+8. Sign the source artifacts with the registered OpenPGP key.
+9. Upload to mentors.debian.net.
+10. File an RFS bug against `sponsorship-requests` by sending the mentors RFS template to `submit@bugs.debian.org`.
+11. Pass Debian NEW review.
+12. Ubuntu can later sync the package from Debian.
 
 ## File the ITP
 
@@ -99,23 +101,25 @@ from `resolute` to `unstable`; keep Debian submission work on `debian/latest`.
 
 Build Debian uploads in Debian, not Ubuntu. Ubuntu's `lintian` can reject `Distribution: unstable`, and Ubuntu-built source metadata can include Ubuntu-specific build context.
 
-A disposable Debian container is enough for this package:
+Use `sbuild` for the clean Debian build. Configure an `unstable` chroot once:
 
 ```bash
-docker run --rm -v "$PWD:/work" -w /work debian:unstable sh -lc '
-  set -eu
-  export DEBIAN_FRONTEND=noninteractive
-  apt-get update >/dev/null
-  apt-get install -y --no-install-recommends \
-    ca-certificates git xz-utils dpkg-dev devscripts debhelper lintian build-essential fontforge python3-fontforge fontconfig >/dev/null
-  rm -rf build
-  UPSTREAM_VERSION="$(dpkg-parsechangelog -S Version | sed "s/-[^-]*$//")"
-  SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
-  ./debian/scripts/prepare-upstream "$UPSTREAM_VERSION"
+sudo sbuild-adduser "$USER"
+sudo sbuild-createchroot unstable /srv/chroot/unstable-amd64-sbuild http://deb.debian.org/debian
+```
+
+Start a new shell after adding the group. Prepare, build, and lint the source package:
+
+```bash
+UPSTREAM_VERSION="$(dpkg-parsechangelog -S Version | sed 's/-[^-]*$//')"
+SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
+./debian/scripts/prepare-upstream "$UPSTREAM_VERSION"
+(
   cd "build/fonts-nerd-symbols-$UPSTREAM_VERSION"
   debuild -S -sa -us -uc
   lintian --profile debian "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes" "../fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
-'
+)
+sbuild --dist=unstable --arch=amd64 "build/fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
 ```
 
 Use `-sa` for the first Debian upload of a new upstream orig tarball. Use `-sd` only for later Debian revisions of the same upstream version after the orig tarball is already in the target archive.
