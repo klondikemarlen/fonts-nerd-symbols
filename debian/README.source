@@ -2,11 +2,11 @@ fonts-nerd-symbols rebuilds Symbols Nerd Font from Nerd Fonts upstream source in
 
 Run from the repository root:
 
-    ./debian/scripts/prepare-upstream 3.4.0+dfsg
+    ./debian/scripts/prepare-upstream 3.4.0+dfsg1
 
-This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only, removes Font Logos plus icon sets already packaged by Debian, and writes ../fonts-nerd-symbols_3.4.0+dfsg.orig.tar.xz. Import it with:
+This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only, removes Font Logos plus icon sets already packaged by Debian, and writes ../fonts-nerd-symbols_3.4.0+dfsg1.orig.tar.xz. Import it with:
 
-    gbp import-orig --no-interactive --upstream-version 3.4.0+dfsg --pristine-tar ../fonts-nerd-symbols_3.4.0+dfsg.orig.tar.xz
+    gbp import-orig --no-interactive --upstream-version 3.4.0+dfsg1 --pristine-tar ../fonts-nerd-symbols_3.4.0+dfsg1.orig.tar.xz
 
 During package build, debian/scripts/build-clean-symbols generates the installed fonts from the shipped source inputs: it regenerates the Seti/custom source font from upstream SVGs, then runs font-patcher twice against NerdFontsSymbolsNerdFontBlank.sfd: once for SymbolsNerdFont-Regular.ttf and once with --mono for SymbolsNerdFontMono-Regular.ttf. It enables only glyph sets not already packaged by Debian.
 
