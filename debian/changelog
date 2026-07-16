@@ -1,24 +1,5 @@
-fonts-nerd-symbols (3.4.0+dfsg-2) unstable; urgency=medium
-
-  * Point Vcs fields and sponsor docs at Salsa packaging repository.
-
- -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Fri, 10 Jul 2026 08:45:05 -0700
-
-fonts-nerd-symbols (3.4.0+dfsg-1) unstable; urgency=medium
-
-  * Rebuild Symbols Nerd Font from source inputs and exclude Font Logos.
-    (Closes: #1141696)
-
- -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Thu, 09 Jul 2026 17:55:00 +0000
-
-fonts-nerd-symbols (3.4.0-2) unstable; urgency=medium
-
-  * Add Vcs-Git and Vcs-Browser fields for sponsor review.
-
- -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Wed, 08 Jul 2026 14:42:00 -0700
-
-fonts-nerd-symbols (3.4.0-1) unstable; urgency=medium
+fonts-nerd-symbols (3.4.0+dfsg-3) unstable; urgency=medium
 
   * Initial release. (Closes: #1141696)
 
- -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Wed, 08 Jul 2026 14:08:46 -0700
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Wed, 15 Jul 2026 00:00:00 +0000

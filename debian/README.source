@@ -4,8 +4,10 @@ Run from the repository root:
 
     ./debian/scripts/prepare-upstream 3.4.0+dfsg
 
-This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only into build/fonts-nerd-symbols-3.4.0+dfsg/upstream-src, removes the unlicensed Font Logos source files, copies debian/ into that source tree, and writes build/fonts-nerd-symbols_3.4.0+dfsg.orig.tar.xz for debuild.
+This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only, removes Font Logos plus icon sets already packaged by Debian, and writes ../fonts-nerd-symbols_3.4.0+dfsg.orig.tar.xz. Import it with:
 
-During package build, debian/scripts/build-clean-symbols generates the installed fonts from the shipped source inputs: it regenerates the Seti/custom source font from upstream SVGs, then runs font-patcher twice against NerdFontsSymbolsNerdFontBlank.sfd: once for SymbolsNerdFont-Regular.ttf and once with --mono for SymbolsNerdFontMono-Regular.ttf. It enables all Symbols Only glyph sets except --fontlogos.
+    gbp import-orig --no-interactive --upstream-version 3.4.0+dfsg --pristine-tar ../fonts-nerd-symbols_3.4.0+dfsg.orig.tar.xz
 
-The installed fonts are rebuilt from shipped source inputs. Font Logos is excluded because upstream license-audit.md lists it as Unlicensed and Debian's Nerd Fonts notes flag logo glyphs as likely non-distributable.
+During package build, debian/scripts/build-clean-symbols generates the installed fonts from the shipped source inputs: it regenerates the Seti/custom source font from upstream SVGs, then runs font-patcher twice against NerdFontsSymbolsNerdFontBlank.sfd: once for SymbolsNerdFont-Regular.ttf and once with --mono for SymbolsNerdFontMono-Regular.ttf. It enables only glyph sets not already packaged by Debian.
+
+The installed fonts are rebuilt from shipped source inputs. Font Logos is excluded because upstream license-audit.md lists it as Unlicensed and Debian's Nerd Fonts notes flag logo glyphs as likely non-distributable. Font Awesome, Material Design Icons, and Weather Icons are excluded because Debian packages them.

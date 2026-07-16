@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: Nerd Fonts Symbols Only, rebuilt without Font Logos
+Upstream-Name: Nerd Fonts Symbols Only, rebuilt with Debian-provided icon sets omitted
 Source: https://github.com/ryanoasis/nerd-fonts
-Comment: This package rebuilds Symbols Nerd Font from upstream source inputs and omits Font Logos, which upstream lists as unlicensed and Debian's Nerd Fonts notes flag as likely non-distributable.
+Comment: This package rebuilds Symbols Nerd Font from upstream source inputs. It omits Font Logos, which upstream lists as unlicensed and Debian's Nerd Fonts notes flag as likely non-distributable, plus Font Awesome, Material Design Icons, and Weather Icons, which Debian already packages.
 
 
 Files: upstream-src/10-nerd-font-symbols.conf upstream-src/LICENSE
@@ -10,7 +10,6 @@ Files: upstream-src/10-nerd-font-symbols.conf upstream-src/LICENSE
        upstream-src/src/unpatched-fonts/NerdFontsSymbolsOnly/*
        upstream-src/src/glyphs/README.md upstream-src/src/glyphs/extraglyphs.sfd
        upstream-src/src/glyphs/original-source.otf upstream-src/src/svgs/*
-       upstream-src/src/glyphs/font-awesome-extension.ttf
        upstream-src/src/glyphs/Unicode_IEC_symbol_font.otf
 Copyright: 2014 Ryan L McIntyre and Nerd Fonts contributors
 License: MIT
@@ -31,26 +30,16 @@ Files: upstream-src/src/glyphs/powerline-symbols/*
 Copyright: 2013 Kim Silkebækken and other contributors
 License: MIT
 
-Files: upstream-src/src/glyphs/materialdesign/*
-Copyright: Material Design Icons contributors
-License: Apache-2.0
 
 Files: upstream-src/src/glyphs/codicons/*
 Copyright: Microsoft Corporation and vscode-codicons contributors
 License: CC-BY-4.0
 
-Files: upstream-src/src/glyphs/font-awesome/*
-Copyright: Fonticons, Inc.
-License: OFL-1.1
-Comment: Font Awesome's bundled license states that font files are under SIL OFL 1.1; icon artwork is CC BY 4.0.
 
 Files: upstream-src/src/glyphs/pomicons/*
 Copyright: Gabriele Lana and Pomicons contributors
 License: OFL-1.1
 
-Files: upstream-src/src/glyphs/weather-icons/*
-Copyright: Weather Icons contributors
-License: OFL-1.1
 
 Files: debian/*
 Copyright: 2026 Marlen Brunner
@@ -75,9 +64,6 @@ License: MIT
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 
-License: Apache-2.0
- On Debian systems, the full text of the Apache License 2.0 is available in
- /usr/share/common-licenses/Apache-2.0.
 
 License: CC-BY-4.0
  Attribution 4.0 International
