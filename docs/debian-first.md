@@ -101,7 +101,7 @@ from `resolute` to `unstable`; keep Debian submission work on `debian/latest`.
 
 Build Debian uploads in Debian, not Ubuntu. Ubuntu's `lintian` can reject `Distribution: unstable`, and Ubuntu-built source metadata can include Ubuntu-specific build context.
 
-Use `sbuild` for the clean Debian build. Configure an `unstable` chroot once:
+Use `sbuild` with `sbuild-schroot` for the clean Debian build. Configure an `unstable` chroot once:
 
 ```bash
 sudo sbuild-adduser "$USER"
@@ -119,7 +119,7 @@ SOURCE_VERSION="$(dpkg-parsechangelog -S Version)"
   debuild -S -sa -us -uc
   lintian --profile debian "../fonts-nerd-symbols_${SOURCE_VERSION}_source.changes" "../fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
 )
-sbuild --dist=unstable --arch=amd64 "build/fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
+sbuild --chroot-mode=schroot --dist=unstable --arch=amd64 "build/fonts-nerd-symbols_${SOURCE_VERSION}.dsc"
 ```
 
 Use `-sa` for the first Debian upload of a new upstream orig tarball. Use `-sd` only for later Debian revisions of the same upstream version after the orig tarball is already in the target archive.

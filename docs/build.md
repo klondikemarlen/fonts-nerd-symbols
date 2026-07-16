@@ -11,7 +11,7 @@ Run targeted QA and the smallest relevant automated check, then post the exact s
 ## Install build tools
 
 ```bash
-sudo apt install git xz-utils build-essential devscripts debhelper lintian dput sbuild debootstrap schroot fontforge python3-fontforge fontconfig
+sudo apt install git xz-utils build-essential devscripts debhelper lintian dput sbuild sbuild-schroot debootstrap schroot fontforge python3-fontforge fontconfig
 ```
 
 ## Version variables
