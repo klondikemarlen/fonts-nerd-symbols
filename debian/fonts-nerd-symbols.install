@@ -1,3 +1,4 @@
 upstream/SymbolsNerdFont-Regular.ttf usr/share/fonts/truetype/nerd-fonts-symbols/
 upstream/SymbolsNerdFontMono-Regular.ttf usr/share/fonts/truetype/nerd-fonts-symbols/
 upstream/10-nerd-font-symbols.conf usr/share/fontconfig/conf.avail/
+debian/60-nerd-font-symbols.conf usr/share/fontconfig/conf.avail/
