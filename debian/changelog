@@ -1,3 +1,13 @@
+fonts-nerd-symbols (3.4.0+dfsg1-2) unstable; urgency=medium
+
+  * Recommend compatible Font Awesome and Material Design companion fonts.
+  * Keep named text families first and inherit their binding for icon
+    fallbacks, ahead of unrelated private-use glyphs. (Closes: #1149204)
+  * Preserve generic monospace preferences and add Fontconfig/Qt regression
+    checks for installed-package fallback behavior.
+
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Fri, 16 Oct 2026 15:25:14 +0000
+
 fonts-nerd-symbols (3.4.0+dfsg1-1) unstable; urgency=medium
 
   * Initial release. (Closes: #1141696)

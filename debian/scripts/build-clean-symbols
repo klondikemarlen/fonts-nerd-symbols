@@ -44,7 +44,8 @@ flags=(
 "${fontforge_bin}" -script "${source_dir}/font-patcher" "${template}" "${flags[@]}" --configfile "${config}"
 "${fontforge_bin}" -script "${source_dir}/font-patcher" "${template}" "${flags[@]}" --mono
 
-cp "${source_dir}/10-nerd-font-symbols.conf" "${out_dir}/"
+python3 "${repo_root}/debian/scripts/configure-font-fallbacks.py" \
+  "${source_dir}/10-nerd-font-symbols.conf" "${out_dir}/10-nerd-font-symbols.conf"
 cp "${source_dir}/src/unpatched-fonts/NerdFontsSymbolsOnly/LICENSE" "${out_dir}/"
 cp "${source_dir}/src/unpatched-fonts/NerdFontsSymbolsOnly/README.md" "${out_dir}/"
 
