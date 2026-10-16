@@ -11,7 +11,7 @@ Package: fonts-nerd-symbols
 Architecture: all
 Multi-Arch: foreign
 Depends: fontconfig-config
-Recommends: fonts-font-awesome, fonts-materialdesignicons-legacy
+Recommends: fonts-font-awesome-legacy, fonts-materialdesignicons-legacy
 Description: Nerd Fonts symbols fallback for fontconfig
  Installs Symbols Nerd Font and fontconfig aliases so existing terminal fonts
  such as Ubuntu Sans Mono can render Nerd Font icon glyphs without switching
