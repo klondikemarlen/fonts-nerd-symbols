@@ -15,13 +15,21 @@ The installed fonts are rebuilt from shipped source inputs. Font Logos is exclud
 Companion font fallback
 -----------------------
 
-The package recommends fonts-font-awesome and fonts-materialdesignicons-legacy.
-Its enabled 60-nerd-font-symbols.conf appends strongly bound Symbols Nerd Font,
-FontAwesome, and Material Design Icons version 6/5 fallbacks to requests covered
-by the upstream Nerd Font aliases (including monospace and Hack). The selected
-text family stays ahead of these fallbacks; language matching no longer selects
-unrelated private-use glyphs in fonts such as UnDotum first. The configuration
-also covers explicit Symbols Nerd Font Mono requests.
+The package recommends fonts-font-awesome-legacy and
+fonts-materialdesignicons-legacy. At build time,
+debian/scripts/configure-font-fallbacks.py adapts the upstream aliases in the
+installed 10-nerd-font-symbols.conf: Symbols Nerd Font, FontAwesome, and Material
+Design Icons version 6/5 follow each named text family with the same binding as
+that family. An explicitly selected font such as Hack therefore stays first,
+and its strongly bound icon companions precede unrelated language fallbacks
+such as UnDotum. Explicit Symbols Nerd Font and Mono requests are also covered.
+
+Generic monospace keeps weak fallbacks so its concrete text-font preferences
+are not replaced by icon fonts. Select a named terminal font covered by the
+upstream aliases to guarantee companion priority. A charset-independent
+strong generic fallback would also replace ordinary letters, digits, spaces,
+or primary-font metrics in applications such as Qt; Fontconfig cannot identify
+the eventual character when Qt first builds its fallback-family list.
 
 Companion fonts provide only glyphs whose codepoints agree with Nerd Fonts:
 FontAwesome supplies the legacy U+F000..U+F2FF icons, and Material Design Icons
@@ -46,10 +54,12 @@ Regression checks
 In a disposable Debian unstable environment with the built package installed:
 
     apt-get install fontconfig fonts-hack fonts-unfonts-core \
-        fonts-font-awesome fonts-materialdesignicons-legacy python3
+        fonts-font-awesome-legacy fonts-materialdesignicons-legacy \
+        python3 python3-pyqt6
     python3 debian/tests/fontconfig-fallback.py
 
 The same checks are registered as a Debian autopkgtest. They exercise the four
-icons in Debian bug #1149204, selected text and Powerline glyphs, bundled icons,
-compatible Material Design icons, generic and explicit Mono requests, and
-normal language fallback. The script ignores user-specific fontconfig files.
+icons in Debian bug #1149204 through Fontconfig and Qt text layout, selected text
+and Powerline glyphs, bundled icons, compatible Material Design icons, explicit
+Mono requests, generic text preservation, and normal language fallback. The
+script ignores user-specific fontconfig files and uses Qt's offscreen platform.
