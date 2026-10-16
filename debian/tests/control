@@ -1,0 +1,2 @@
+Test-Command: python3 debian/tests/fontconfig-fallback.py
+Depends: @, fontconfig, fonts-hack, fonts-unfonts-core, fonts-font-awesome, fonts-materialdesignicons-legacy, python3
