@@ -11,3 +11,45 @@ This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only, 
 During package build, debian/scripts/build-clean-symbols generates the installed fonts from the shipped source inputs: it regenerates the Seti/custom source font from upstream SVGs, then runs font-patcher twice against NerdFontsSymbolsNerdFontBlank.sfd: once for SymbolsNerdFont-Regular.ttf and once with --mono for SymbolsNerdFontMono-Regular.ttf. It enables only glyph sets not already packaged by Debian.
 
 The installed fonts are rebuilt from shipped source inputs. Font Logos is excluded because upstream license-audit.md lists it as Unlicensed and Debian's Nerd Fonts notes flag logo glyphs as likely non-distributable. Font Awesome, Material Design Icons, and Weather Icons are excluded because Debian packages them.
+
+Companion font fallback
+-----------------------
+
+The package recommends fonts-font-awesome and fonts-materialdesignicons-legacy.
+Its enabled 60-nerd-font-symbols.conf appends strongly bound Symbols Nerd Font,
+FontAwesome, and Material Design Icons version 6/5 fallbacks to requests covered
+by the upstream Nerd Font aliases (including monospace and Hack). The selected
+text family stays ahead of these fallbacks; language matching no longer selects
+unrelated private-use glyphs in fonts such as UnDotum first. The configuration
+also covers explicit Symbols Nerd Font Mono requests.
+
+Companion fonts provide only glyphs whose codepoints agree with Nerd Fonts:
+FontAwesome supplies the legacy U+F000..U+F2FF icons, and Material Design Icons
+version 6/5 supplies its available U+F0001 and higher icons. These packages do
+not restore all icons from newer Nerd Fonts releases. In particular, newer Font
+Awesome icons remapped into U+ED00..U+EFFF and Material Design icons absent from
+the companion versions remain unavailable.
+
+Do not add Weather Icons or the old Material Design Icons family to this
+fallback list: Weather Icons uses U+F000..U+F0EB where Nerd Fonts uses
+U+E300..U+E3EB, while the old Material Design font uses overlapping U+F000
+codepoints instead of the supplementary private-use area. Fontconfig selects
+families; it cannot remap codepoints. Recommending these incompatible fonts
+would not restore the missing icons and could select the wrong glyphs.
+
+Install the recommended packages unless deliberately accepting reduced icon
+coverage. After an upgrade, restart applications that retain fontconfig state.
+
+Regression checks
+-----------------
+
+In a disposable Debian unstable environment with the built package installed:
+
+    apt-get install fontconfig fonts-hack fonts-unfonts-core \
+        fonts-font-awesome fonts-materialdesignicons-legacy python3
+    python3 debian/tests/fontconfig-fallback.py
+
+The same checks are registered as a Debian autopkgtest. They exercise the four
+icons in Debian bug #1149204, selected text and Powerline glyphs, bundled icons,
+compatible Material Design icons, generic and explicit Mono requests, and
+normal language fallback. The script ignores user-specific fontconfig files.
