@@ -32,7 +32,7 @@ class FontconfigFallbackTests(unittest.TestCase):
             with self.subTest(character=character):
                 self.assertEqual(
                     matched_family(
-                        f"Monaco,Consolas,Liberation Mono,monospace:"
+                        f"Fira Code,Consolas,Liberation Mono,monospace:"
                         f"charset={ord(character):x}"
                     ),
                     "Liberation Mono",
@@ -44,7 +44,7 @@ class FontconfigFallbackTests(unittest.TestCase):
         families = subprocess.check_output(
             [
                 "fc-pattern", "--config", "--format=%{family}",
-                r"Monaco,\-moz-sentinel",
+                r"Fira Code,\-moz\-sentinel",
             ],
             text=True,
         ).split(",")
