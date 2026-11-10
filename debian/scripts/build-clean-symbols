@@ -26,7 +26,6 @@ rm -rf "${out_dir}"
 mkdir -p "${out_dir}"
 
 flags=(
-  --codicons
   --octicons
   --powersymbols
   --pomicons
