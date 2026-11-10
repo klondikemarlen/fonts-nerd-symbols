@@ -1,3 +1,12 @@
+fonts-nerd-symbols (3.4.0+dfsg1-3) unstable; urgency=high
+
+  * Append icon fallbacks after the complete requested family list rather than
+    substituting for missing CSS families in Firefox. (Closes: #1153511)
+  * Check multi-family text selection and Firefox's family-substitution boundary
+    while retaining installed-package Fontconfig and Qt icon coverage.
+
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Tue, 10 Nov 2026 21:06:59 +0000
+
 fonts-nerd-symbols (3.4.0+dfsg1-2) unstable; urgency=medium
 
   * Recommend compatible Font Awesome and Material Design companion fonts.
