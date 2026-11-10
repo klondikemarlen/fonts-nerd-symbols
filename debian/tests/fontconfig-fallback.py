@@ -27,6 +27,35 @@ class FontconfigFallbackTests(unittest.TestCase):
     def test_selected_text_font_is_preserved(self):
         self.assertEqual(matched_family("Hack:charset=20 30 41 61"), "Hack")
 
+    def test_missing_css_family_does_not_displace_later_text_family(self):
+        for character in " Aa0!":
+            with self.subTest(character=character):
+                self.assertEqual(
+                    matched_family(
+                        f"Fira Code,Consolas,Liberation Mono,monospace:"
+                        f"charset={ord(character):x}"
+                    ),
+                    "Liberation Mono",
+                )
+
+    def test_firefox_family_lookup_does_not_substitute_icon_fonts(self):
+        # Firefox uses a sentinel to distinguish family substitutions from
+        # general fallbacks; anything before it becomes a CSS family candidate.
+        families = subprocess.check_output(
+            [
+                "fc-pattern", "--config", "--format=%{family}",
+                r"Fira Code,\-moz\-sentinel",
+            ],
+            text=True,
+        ).split(",")
+        substitutions = families[:families.index("-moz-sentinel")]
+        for family in (
+            "Symbols Nerd Font", "FontAwesome",
+            "Material Design Icons version 6", "Material Design Icons version 5",
+        ):
+            with self.subTest(family=family):
+                self.assertNotIn(family, substitutions)
+
     def test_selected_font_keeps_its_own_powerline_glyph(self):
         self.assertEqual(matched_family("Hack:charset=e0a0"), "Hack")
 

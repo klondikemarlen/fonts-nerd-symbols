@@ -15,14 +15,9 @@ The installed fonts are rebuilt from shipped source inputs. Font Logos is exclud
 Companion font fallback
 -----------------------
 
-The package recommends fonts-font-awesome-legacy and
-fonts-materialdesignicons-legacy. At build time,
-debian/scripts/configure-font-fallbacks.py adapts the upstream aliases in the
-installed 10-nerd-font-symbols.conf: Symbols Nerd Font, FontAwesome, and Material
-Design Icons version 6/5 follow each named text family with the same binding as
-that family. An explicitly selected font such as Hack therefore stays first,
-and its strongly bound icon companions precede unrelated language fallbacks
-such as UnDotum. Explicit Symbols Nerd Font and Mono requests are also covered.
+The package recommends fonts-font-awesome-legacy and fonts-materialdesignicons-legacy. At build time, debian/scripts/configure-font-fallbacks.py converts the upstream aliases to early pattern rules: Symbols Nerd Font, FontAwesome, and Material Design Icons version 6/5 are appended after the complete requested family list. Named requests receive strongly bound companions, before unrelated language fallbacks such as UnDotum; generic monospace keeps weak companions. Explicit Symbols Nerd Font and Mono requests are also covered. Fontconfig's append_last operation does not inherit a matched family's binding: binding="same" would make all these fallbacks weak.
+
+Appending after the whole list is important when a requested family is missing. Inserting icons immediately after that name can displace a later text family and makes Firefox treat the icons as substitutions for a CSS font. Firefox distinguishes such substitutions from general fallback using a sentinel family; the appended icons must remain after it.
 
 Generic monospace keeps weak fallbacks so its concrete text-font preferences
 are not replaced by icon fonts. Select a named terminal font covered by the
@@ -53,13 +48,11 @@ Regression checks
 
 In a disposable Debian unstable environment with the built package installed:
 
-    apt-get install fontconfig fonts-hack fonts-unfonts-core \
+    apt-get install fontconfig fonts-hack fonts-liberation fonts-unfonts-core \
         fonts-font-awesome-legacy fonts-materialdesignicons-legacy \
         python3 python3-pyqt6
     python3 debian/tests/fontconfig-fallback.py
 
-The same checks are registered as a Debian autopkgtest. They exercise the four
-icons in Debian bug #1149204 through Fontconfig and Qt text layout, selected text
-and Powerline glyphs, bundled icons, compatible Material Design icons, explicit
-Mono requests, generic text preservation, and normal language fallback. The
-script ignores user-specific fontconfig files and uses Qt's offscreen platform.
+The same checks are registered as a Debian autopkgtest. They exercise the four icons in Debian bug #1149204 through Fontconfig and Qt text layout, selected text and Powerline glyphs, bundled icons, compatible Material Design icons, explicit Mono requests, generic text preservation, and normal language fallback. Multi-family text selection and Firefox's sentinel lookup cover the substitution boundary from Debian bug #1153511. The script ignores user-specific fontconfig files and uses Qt's offscreen platform.
+
+For browser validation, restart Firefox after installing the package and render ordinary code with the CSS family list `"Fira Code", Consolas, "Liberation Mono", monospace`, with the first two families absent. Fira Code is covered by the upstream aliases, so this exercises a missing aliased family. Compare with `"Liberation Mono"` alone: letters, digits, punctuation, and spaces must remain unchanged, and the font inspector must not show companion icon fonts for that text.
