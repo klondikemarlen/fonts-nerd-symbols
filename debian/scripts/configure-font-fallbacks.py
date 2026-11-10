@@ -35,6 +35,7 @@ for alias in root.findall("alias"):
         "FontAwesome",
         "Material Design Icons version 6",
         "Material Design Icons version 5",
+        "codicon",
     ):
         ET.SubElement(fallbacks, "string").text = family
     root.remove(alias)
