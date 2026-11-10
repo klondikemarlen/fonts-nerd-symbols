@@ -2,20 +2,20 @@ fonts-nerd-symbols rebuilds Symbols Nerd Font from Nerd Fonts upstream source in
 
 Run from the repository root:
 
-    ./debian/scripts/prepare-upstream 3.4.0+dfsg1
+    ./debian/scripts/prepare-upstream 3.4.0+dfsg2
 
-This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only, removes Font Logos plus icon sets already packaged by Debian, and writes ../fonts-nerd-symbols_3.4.0+dfsg1.orig.tar.xz. Import it with:
+This sparse-clones the Nerd Fonts v3.4.0 source inputs needed for Symbols Only, removes Font Logos plus icon sets already packaged by Debian, and writes ../fonts-nerd-symbols_3.4.0+dfsg2.orig.tar.xz. The new +dfsg2 repack excludes Codicons; do not replace the published +dfsg1 orig tarball. Import it with:
 
-    gbp import-orig --no-interactive --upstream-version 3.4.0+dfsg1 --pristine-tar ../fonts-nerd-symbols_3.4.0+dfsg1.orig.tar.xz
+    gbp import-orig --no-interactive --upstream-version 3.4.0+dfsg2 --pristine-tar ../fonts-nerd-symbols_3.4.0+dfsg2.orig.tar.xz
 
 During package build, debian/scripts/build-clean-symbols generates the installed fonts from the shipped source inputs: it regenerates the Seti/custom source font from upstream SVGs, then runs font-patcher twice against NerdFontsSymbolsNerdFontBlank.sfd: once for SymbolsNerdFont-Regular.ttf and once with --mono for SymbolsNerdFontMono-Regular.ttf. It enables only glyph sets not already packaged by Debian.
 
-The installed fonts are rebuilt from shipped source inputs. Font Logos is excluded because upstream license-audit.md lists it as Unlicensed and Debian's Nerd Fonts notes flag logo glyphs as likely non-distributable. Font Awesome, Material Design Icons, and Weather Icons are excluded because Debian packages them.
+The installed fonts are rebuilt from shipped source inputs. Font Logos is excluded because upstream license-audit.md lists it as Unlicensed and Debian's Nerd Fonts notes flag logo glyphs as likely non-distributable. Codicons, Font Awesome, Material Design Icons, and Weather Icons are excluded because Debian packages them. The unchanged upstream license-audit.md describes the full upstream collection; debian/copyright inventories the shipped source.
 
 Companion font fallback
 -----------------------
 
-The package recommends fonts-font-awesome-legacy and fonts-materialdesignicons-legacy. At build time, debian/scripts/configure-font-fallbacks.py converts the upstream aliases to early pattern rules: Symbols Nerd Font, FontAwesome, and Material Design Icons version 6/5 are appended after the complete requested family list. Named requests receive strongly bound companions, before unrelated language fallbacks such as UnDotum; generic monospace keeps weak companions. Explicit Symbols Nerd Font and Mono requests are also covered. Fontconfig's append_last operation does not inherit a matched family's binding: binding="same" would make all these fallbacks weak.
+The package recommends fonts-codicons, fonts-font-awesome-legacy, and fonts-materialdesignicons-legacy. At build time, debian/scripts/configure-font-fallbacks.py converts the upstream aliases to early pattern rules: Symbols Nerd Font, FontAwesome, Material Design Icons version 6/5, and codicon are appended after the complete requested family list. Named requests receive strongly bound companions, before unrelated language fallbacks such as UnDotum; generic monospace keeps weak companions. Explicit Symbols Nerd Font and Mono requests are also covered. Fontconfig's append_last operation does not inherit a matched family's binding: binding="same" would make all these fallbacks weak.
 
 Appending after the whole list is important when a requested family is missing. Inserting icons immediately after that name can displace a later text family and makes Firefox treat the icons as substitutions for a CSS font. Firefox distinguishes such substitutions from general fallback using a sentinel family; the appended icons must remain after it.
 
@@ -27,11 +27,13 @@ or primary-font metrics in applications such as Qt; Fontconfig cannot identify
 the eventual character when Qt first builds its fallback-family list.
 
 Companion fonts provide only glyphs whose codepoints agree with Nerd Fonts:
-FontAwesome supplies the legacy U+F000..U+F2FF icons, and Material Design Icons
-version 6/5 supplies its available U+F0001 and higher icons. These packages do
-not restore all icons from newer Nerd Fonts releases. In particular, newer Font
-Awesome icons remapped into U+ED00..U+EFFF and Material Design icons absent from
-the companion versions remain unavailable.
+FontAwesome supplies the legacy U+F000..U+F2FF icons, Material Design Icons
+version 6/5 supplies its available U+F0001 and higher icons, and codicon supplies
+Codicons at their original U+EA60..U+EC1E positions. The separately packaged
+fonts-codicons 0.0.46-50-1 covers all 438 Codicons used by Nerd Fonts v3.4.0.
+These packages do not restore all icons from newer Nerd Fonts releases. In
+particular, newer Font Awesome icons remapped into U+ED00..U+EFFF and Material
+Design icons absent from the companion versions remain unavailable.
 
 Do not add Weather Icons or the old Material Design Icons family to this
 fallback list: Weather Icons uses U+F000..U+F0EB where Nerd Fonts uses
@@ -49,10 +51,10 @@ Regression checks
 In a disposable Debian unstable environment with the built package installed:
 
     apt-get install fontconfig fonts-hack fonts-liberation fonts-unfonts-core \
-        fonts-font-awesome-legacy fonts-materialdesignicons-legacy \
+        fonts-codicons fonts-font-awesome-legacy fonts-materialdesignicons-legacy \
         python3 python3-pyqt6
     python3 debian/tests/fontconfig-fallback.py
 
-The same checks are registered as a Debian autopkgtest. They exercise the four icons in Debian bug #1149204 through Fontconfig and Qt text layout, selected text and Powerline glyphs, bundled icons, compatible Material Design icons, explicit Mono requests, generic text preservation, and normal language fallback. Multi-family text selection and Firefox's sentinel lookup cover the substitution boundary from Debian bug #1153511. The script ignores user-specific fontconfig files and uses Qt's offscreen platform.
+The same checks are registered as a Debian autopkgtest. They exercise the four icons in Debian bug #1149204 through Fontconfig and Qt text layout, selected text and Powerline glyphs, bundled icons, compatible Material Design icons, Codicons companion selection for named and explicit Symbols families, explicit Mono requests, generic text preservation, and normal language fallback. Multi-family text selection and Firefox's sentinel lookup cover the substitution boundary from Debian bug #1153511. The script ignores user-specific fontconfig files and uses Qt's offscreen platform.
 
 For browser validation, restart Firefox after installing the package and render ordinary code with the CSS family list `"Fira Code", Consolas, "Liberation Mono", monospace`, with the first two families absent. Fira Code is covered by the upstream aliases, so this exercises a missing aliased family. Compare with `"Liberation Mono"` alone: letters, digits, punctuation, and spaces must remain unchanged, and the font inspector must not show companion icon fonts for that text.

@@ -1,3 +1,13 @@
+fonts-nerd-symbols (3.4.0+dfsg2-1) unstable; urgency=medium
+
+  * Repack without the separately packaged Codicons source and stop embedding
+    its glyphs in either Symbols Nerd Font variant. (Closes: #1153677)
+  * Recommend fonts-codicons and retain compatible icons through its codicon
+    family, with installed-package Fontconfig and Qt coverage.
+  * Remove the obsolete Codicons copyright and license inventory.
+
+ -- Marlen Brunner <klondikemarlen+debian@gmail.com>  Tue, 10 Nov 2026 21:33:23 +0000
+
 fonts-nerd-symbols (3.4.0+dfsg1-3) unstable; urgency=high
 
   * Append icon fallbacks after the complete requested family list rather than
