@@ -45,6 +45,27 @@ would not restore the missing icons and could select the wrong glyphs.
 Install the recommended packages unless deliberately accepting reduced icon
 coverage. After an upgrade, restart applications that retain fontconfig state.
 
+Python lint
+-----------
+
+Check the Debian-owned Python sources with Pyflakes 3.4.0. For isolated local
+setup, run from the repository root with Python's venv module available:
+
+    python3 -m venv .venv
+    .venv/bin/python -m pip install pyflakes==3.4.0
+    .venv/bin/python -m pyflakes debian/scripts/configure-font-fallbacks.py \
+        debian/tests/fontconfig-fallback.py
+
+Keep .venv ignored and local; it is not a package build dependency. In the
+disposable Debian QA environment, the pyflakes3 package provides the same
+module for system python3.
+
+debian/.omp-verifier.json selects this non-fixing command for Debian-owned
+Python sources and forwards every selected path. OMP Verifier 1.2.0 or newer
+discovers the repository's .venv before PATH; a missing Pyflakes dependency
+remains a verification blocker. The binding does not change upstream font
+sources or replace installed-package, Fontconfig/Qt, or Firefox checks.
+
 Regression checks
 -----------------
 
