@@ -52,6 +52,7 @@ class FontconfigFallbackTests(unittest.TestCase):
         for family in (
             "Symbols Nerd Font", "FontAwesome",
             "Material Design Icons version 6", "Material Design Icons version 5",
+            "codicon",
         ):
             with self.subTest(family=family):
                 self.assertNotIn(family, substitutions)
@@ -61,9 +62,17 @@ class FontconfigFallbackTests(unittest.TestCase):
 
     def test_bundled_icons_override_unrelated_glyphs(self):
         self.assertEqual(
-            matched_family("Hack:charset=ea60"),
+            matched_family("Hack:charset=f400"),
             "Symbols Nerd Font",
         )
+
+    def test_codicons_use_the_separately_packaged_font(self):
+        for family in ("Hack", "Symbols Nerd Font", "Symbols Nerd Font Mono"):
+            for codepoint in ("ea60", "ec1e"):
+                with self.subTest(family=family, codepoint=codepoint):
+                    self.assertEqual(
+                        matched_family(f"{family}:charset={codepoint}"), "codicon",
+                    )
 
     def test_material_design_uses_compatible_supplementary_codepoints(self):
         self.assertEqual(
@@ -108,6 +117,11 @@ class QtFallbackTests(unittest.TestCase):
         for character in ("\uf120", "\uf07b", "\uf09b", "\uf17c"):
             with self.subTest(codepoint=hex(ord(character))):
                 self.assertEqual(laid_out_families(font, character), ["FontAwesome"])
+
+    def test_qt_uses_the_codicons_companion(self):
+        font = QFont("Hack")
+        font.setStyleHint(QFont.StyleHint.Monospace)
+        self.assertEqual(laid_out_families(font, "\uea60"), ["codicon"])
 
     def test_qt_preserves_generic_monospace_letters_digits_and_spaces(self):
         font = QFont("monospace")

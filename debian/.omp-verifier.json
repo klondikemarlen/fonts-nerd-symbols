@@ -1,0 +1,11 @@
+{
+  "lint": {
+    "commands": {
+      "python": {
+        "tool": "pyflakes",
+        "command": ["python3", "-m", "pyflakes"],
+        "appendPaths": true
+      }
+    }
+  }
+}
