@@ -17,7 +17,8 @@ Use `debian/latest` as the long-lived Debian packaging branch. Keep PPA/GitHub r
 9. Upload to mentors.debian.net.
 10. File an RFS bug against `sponsorship-requests` by sending the mentors RFS template to `submit@bugs.debian.org`.
 11. Pass Debian NEW review.
-12. Ubuntu can later sync the package from Debian.
+12. After archive acceptance, complete [Debian bug closure](#debian-bug-closure) for every fixed bug.
+13. Ubuntu can later sync the package from Debian.
 
 ## File the ITP
 
@@ -96,6 +97,29 @@ For later review revisions, keep the ITP closure in the latest uploaded
 changelog stanza or close the ITP manually after archive acceptance. Use the
 public Debian packaging email you used for the ITP. Do not change the PPA branch
 from `resolute` to `unstable`; keep Debian submission work on `debian/latest`.
+
+## Debian bug closure
+
+For every Debian bug-fix release, follow the official [Debian BTS procedure for closing bug reports](https://www.debian.org/Bugs/Developer#closing). A merge, GitHub release, Mentors upload, or SMTP acceptance is not confirmed Debian bug closure.
+
+1. **Before upload:** list every bug fixed since the last version accepted into Debian, including fixes in superseded, unpublished revisions. Check that each number appears in the generated source `.changes` file's `Closes` field, not merely somewhere in `debian/changelog`. If an earlier stanza was omitted, carry the relevant closure into the current stanza or include the full changelog range since the last accepted version when generating `.changes`; rebuild and re-sign the upload, then check the field again. Do not edit a signed `.changes` file.
+2. **Prove the shipped fix:** verify archive acceptance and the exact accepted version on the [Debian package tracker](https://tracker.debian.org/pkg/fonts-nerd-symbols). Exercise the reported failure against the released artifact in isolation and preserve the affected-versus-fixed evidence. If testing generated configuration separately, establish that the archived binary ships identical configuration. Do not close an unproven fix or use a newer local revision as proof of an older archived version.
+3. **Check automatic closure:** read each public bug record after acceptance. Confirm both its closed status and the fixed version. A `Closes` entry in an unpublished revision can be missed by the eventual upload; do not assume archive acceptance closed every intended bug.
+4. **Recover a missed closure:** once the fix is proven and in the archive, the maintainer sends a concise explanation to `NNNNNN-done@bugs.debian.org`, using the version that actually entered Debian. For this source package, use the following body, replacing every placeholder:
+
+   ```text
+   Source: fonts-nerd-symbols
+   Source-Version: ACCEPTED_VERSION
+
+   This is fixed in ACCEPTED_VERSION, now available in Debian.
+   EXPLAIN_THE_FIX_AND_THE_OBSERVED_BEHAVIOR_CHECK.
+   LINK_TO_ARCHIVE_ACCEPTANCE_AND_RELEVANT_FIX_EVIDENCE.
+   ```
+
+   Ordinary mail to `NNNNNN@bugs.debian.org` does not close the bug. Do not rely on a `Control:` pseudo-header sent only to the `-done` address; it is unsupported there. Follow the official procedure above for other control operations.
+5. **Confirm completion:** read back the public BTS record and verify the closed status and correct fixed version. Until processing is visible, report “closure submitted; confirmation pending,” retain the message ID, and do not blindly resend. For a release-critical bug, also check the package tracker's autoremoval status after its next refresh; closure and removal of that warning are separate observations. Do not claim the removal is cancelled until the tracker confirms it.
+
+Keep a recurring sponsorship tracker open; record the individual release's archive acceptance and bug-closure outcome without closing the ongoing tracker.
 
 ## Build source for review
 
