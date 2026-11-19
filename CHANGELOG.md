@@ -13,6 +13,7 @@ This file follows [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.0.0/)
 - Added a one-command DFSG package helper for rebuilding the Debian-clean package from source inputs.
 - Added repo-native `make test`, `make test-integration`, and `make test-repro` targets.
 - Added pinned Nerd Fonts v3.4.0 upstream notice/license inventory checks for the prepared DFSG source tree.
+- Added a Debian bug-closure checklist covering superseded uploads, archived-fix evidence, versioned closure mail, and public BTS confirmation.
 
 ### Changed
 

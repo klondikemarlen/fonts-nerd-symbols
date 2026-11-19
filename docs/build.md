@@ -8,6 +8,8 @@ Before release, link the change to an issue and open a draft pull request agains
 
 Run targeted QA and the smallest relevant automated check, then post the exact scenario, command, and outcome in the PR. Resolve every actionable comment before merging. After any fix, repeat the complete self-review and QA and post the new evidence; keep the PR blocked until comments and checks are resolved.
 
+For Debian bug-fix releases, complete the [Debian bug-closure checklist](debian-first.md#debian-bug-closure): check upload closure metadata, prove the archived fix, and confirm the BTS fixed version after acceptance. GitHub publication alone does not close Debian bugs.
+
 ## Install build tools
 
 ```bash
